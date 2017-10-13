@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: mlzone
 Target Host: localhost
 Target Database: mlzone
-Date: 2017-10-13 22:53:10
+Date: 2017-10-13 23:02:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -74,6 +74,7 @@ DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(32) DEFAULT NULL,
+  `nickname` varchar(32) DEFAULT NULL,
   `password` varchar(32) DEFAULT NULL,
   `sex` varchar(8) DEFAULT NULL,
   `idCard` varchar(20) DEFAULT NULL,
@@ -84,8 +85,7 @@ CREATE TABLE `tb_user` (
   `status` varchar(32) DEFAULT NULL,
   `image` varchar(32) DEFAULT NULL,
   `user_type` int(11) DEFAULT NULL,
-  `sina_account` varchar(32) DEFAULT NULL,
-  `weixin_account` varchar(32) DEFAULT NULL,
+  `account_source` int(11) DEFAULT NULL,
   `reg_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
