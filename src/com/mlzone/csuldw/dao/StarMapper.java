@@ -12,7 +12,7 @@ public interface StarMapper {
 	 * @return
 	 * @since
 	 */
-    int deleteStar(Integer id);
+    int deleteStarById(Integer id);
 
     /**
      * 保存赞

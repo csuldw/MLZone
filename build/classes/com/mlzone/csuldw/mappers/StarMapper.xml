@@ -18,7 +18,7 @@
 		from tb_star
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteStar" parameterType="java.lang.Integer">
+	<delete id="deleteStarById" parameterType="java.lang.Integer">
 		delete from tb_star
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
