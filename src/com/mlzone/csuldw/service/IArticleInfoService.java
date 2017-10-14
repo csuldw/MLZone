@@ -20,12 +20,12 @@ public interface IArticleInfoService {
 	
     int saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity);
 
-    List<ArticleInfoEntity> getArticleInfoList();
+    List<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize);
 
     ArticleInfoEntity getArticelInfoById(Integer id);
     
-    List<ArticleInfoEntity>getArticleInfoListByParams(String keyword, String tag, String category);
+    List<ArticleInfoEntity>getArticleInfoListByParams(String keyword, String tag, String category, int pageNum, int pageSize);
 
-    int countArticleInfoByParams(String keyword, String tag, String category);
+    int countArticleInfoByParams(String keyword, String tag, String category, int pageNum, int pageSize);
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
 import com.mlzone.csuldw.dao.ArticleInfoMapper;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 import com.mlzone.csuldw.service.IArticleInfoService;
@@ -34,7 +35,8 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	}
 
 	@Override
-	public List<ArticleInfoEntity> getArticleInfoList() {
+	public List<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
 		return articleInfoMapper.getArticleInfoList();
 	}
 
@@ -44,14 +46,14 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	}
 
 	@Override
-	public List<ArticleInfoEntity> getArticleInfoListByParams(String keyword,
-			String tag, String category) {
+	public List<ArticleInfoEntity> getArticleInfoListByParams(String keyword, String tag, String category, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
 		return articleInfoMapper.getArticleInfoListByParams(keyword, tag, category);
 	}
 
 	@Override
-	public int countArticleInfoByParams(String keyword, String tag,
-			String category) {
+	public int countArticleInfoByParams(String keyword, String tag,	String category, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
 		return articleInfoMapper.countArticleInfoByParams(keyword, tag, category);
 	}
 
