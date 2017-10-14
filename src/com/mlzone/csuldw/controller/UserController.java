@@ -23,15 +23,78 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
 
+/**
+ * 
+ * Date: 2017年10月14日 下午3:08:33 
+ * 
+ * @author liudiwei 
+ * @version  
+ * @since JDK 1.7
+ */
 @Controller
 public class UserController {
 
 	@Autowired
 	private IUserService userService;
 
+	/**
+	 * 保存用户
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月14日
+	 * @param userEntity
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/user/saveOrUpdateUser.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> saveOrUpdateUser(UserEntity userEntity){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			int insertResult = userService.saveOrUpdateUser(userEntity);
+			if(insertResult == 1){
+				resultMap.put("result", "success");
+			}else{
+				resultMap.put("result", "error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 更新用户信息
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月14日
+	 * @param userEntity
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/user/updateUser.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateUser(UserEntity userEntity){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			int insertResult = userService.updateUserById(userEntity);
+			if(insertResult == 1){
+				resultMap.put("result", "success");
+			}else{
+				resultMap.put("result", "error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+	
+	
+	
+	
 	@RequestMapping(value = "/hello.do")
 	public String find(HttpServletRequest request) {
-		String age = userService.findAge("1");
+		String age = userService.findNicknameById("1");
 		System.out.println(age);// 如果实验成功，在控制台会打印年龄25
 		return "index";
 	}
@@ -51,7 +114,7 @@ public class UserController {
 	public Map<String, Object> getUserList(int pageNum, int pageSize) {
 		Map<String, Object> res = new HashMap<>();
 		System.out.println(pageNum + " " + pageSize);
-		List<UserEntity> users = userService.getUser(pageNum, pageSize);
+		List<UserEntity> users = userService.getUserList(pageNum, pageSize);
 		res.put("data", users);
 		return res;
 	}

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mlzone.csuldw.dao.RecommendationMapper" >
+  <resultMap id="BaseResultMap" type="com.mlzone.csuldw.entity.RecommendationEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="link" property="link" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="recommendation_type" property="recommendationType" jdbcType="INTEGER" />
+    <result column="catetory_id" property="catetoryId" jdbcType="INTEGER" />
+    <result column="recommend_date" property="recommendDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, link, source, author, recommendation_type, catetory_id, recommend_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_recommendation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_recommendation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mlzone.csuldw.entity.RecommendationEntity" >
+    insert into tb_recommendation (id, title, link, 
+      source, author, recommendation_type, 
+      catetory_id, recommend_date)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, 
+      #{source,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{recommendationType,jdbcType=INTEGER}, 
+      #{catetoryId,jdbcType=INTEGER}, #{recommendDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity" >
+    insert into tb_recommendation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="link != null" >
+        link,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="recommendationType != null" >
+        recommendation_type,
+      </if>
+      <if test="catetoryId != null" >
+        catetory_id,
+      </if>
+      <if test="recommendDate != null" >
+        recommend_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendationType != null" >
+        #{recommendationType,jdbcType=INTEGER},
+      </if>
+      <if test="catetoryId != null" >
+        #{catetoryId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendDate != null" >
+        #{recommendDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity" >
+    update tb_recommendation
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null" >
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="recommendationType != null" >
+        recommendation_type = #{recommendationType,jdbcType=INTEGER},
+      </if>
+      <if test="catetoryId != null" >
+        catetory_id = #{catetoryId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendDate != null" >
+        recommend_date = #{recommendDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mlzone.csuldw.entity.RecommendationEntity" >
+    update tb_recommendation
+    set title = #{title,jdbcType=VARCHAR},
+      link = #{link,jdbcType=VARCHAR},
+      source = #{source,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      recommendation_type = #{recommendationType,jdbcType=INTEGER},
+      catetory_id = #{catetoryId,jdbcType=INTEGER},
+      recommend_date = #{recommendDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

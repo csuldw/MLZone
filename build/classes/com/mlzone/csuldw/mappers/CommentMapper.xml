@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mlzone.csuldw.dao.CommentMapper" >
+  <resultMap id="BaseResultMap" type="com.mlzone.csuldw.entity.CommentEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="from_user_id" property="fromUserId" jdbcType="INTEGER" />
+    <result column="to_user_id" property="toUserId" jdbcType="INTEGER" />
+    <result column="article_id" property="articleId" jdbcType="INTEGER" />
+    <result column="parent_comment_id" property="parentCommentId" jdbcType="INTEGER" />
+    <result column="send_date" property="sendDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, content, from_user_id, to_user_id, article_id, parent_comment_id, send_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_comment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_comment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mlzone.csuldw.entity.CommentEntity" >
+    insert into tb_comment (id, content, from_user_id, 
+      to_user_id, article_id, parent_comment_id, 
+      send_date)
+    values (#{id,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{fromUserId,jdbcType=INTEGER}, 
+      #{toUserId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER}, #{parentCommentId,jdbcType=INTEGER}, 
+      #{sendDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.CommentEntity" >
+    insert into tb_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="fromUserId != null" >
+        from_user_id,
+      </if>
+      <if test="toUserId != null" >
+        to_user_id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="parentCommentId != null" >
+        parent_comment_id,
+      </if>
+      <if test="sendDate != null" >
+        send_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        #{fromUserId,jdbcType=INTEGER},
+      </if>
+      <if test="toUserId != null" >
+        #{toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="parentCommentId != null" >
+        #{parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="sendDate != null" >
+        #{sendDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.CommentEntity" >
+    update tb_comment
+    <set >
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        from_user_id = #{fromUserId,jdbcType=INTEGER},
+      </if>
+      <if test="toUserId != null" >
+        to_user_id = #{toUserId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        article_id = #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="parentCommentId != null" >
+        parent_comment_id = #{parentCommentId,jdbcType=INTEGER},
+      </if>
+      <if test="sendDate != null" >
+        send_date = #{sendDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mlzone.csuldw.entity.CommentEntity" >
+    update tb_comment
+    set content = #{content,jdbcType=VARCHAR},
+      from_user_id = #{fromUserId,jdbcType=INTEGER},
+      to_user_id = #{toUserId,jdbcType=INTEGER},
+      article_id = #{articleId,jdbcType=INTEGER},
+      parent_comment_id = #{parentCommentId,jdbcType=INTEGER},
+      send_date = #{sendDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
