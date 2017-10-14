@@ -252,9 +252,11 @@
 		reg_date = #{regDate,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+ 	
  	<select id="getUserList" resultType="com.mlzone.csuldw.entity.UserEntity">
-		select * from d_user
+		select * from tb_user
 	</select>
+	
 	<select id="findNicknameById" parameterType="String" resultType="String">
 		select nickname from tb_user WHERE id=#{id}
 	</select>

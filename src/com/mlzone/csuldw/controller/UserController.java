@@ -1,21 +1,11 @@
 package com.mlzone.csuldw.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -88,80 +78,44 @@ public class UserController {
 		}
 		return resultMap;
 	}
-	
-	
-	
-	
-	@RequestMapping(value = "/hello.do")
-	public String find(HttpServletRequest request) {
-		String age = userService.findNicknameById("1");
-		System.out.println(age);// 如果实验成功，在控制台会打印年龄25
-		return "index";
-	}
 
-	@RequestMapping(value = "view.do", method = RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> testView(@RequestBody List<UserEntity> user) {
-		Map<String, Object> res = new HashMap<>();
-		for (UserEntity entity : user) {
-			System.out.println(entity.toString());
-		}
-		return res;
-	}
-
-	@RequestMapping(value = "/getUserList.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/getUserList.do")
 	@ResponseBody
 	public Map<String, Object> getUserList(int pageNum, int pageSize) {
-		Map<String, Object> res = new HashMap<>();
-		System.out.println(pageNum + " " + pageSize);
-		List<UserEntity> users = userService.getUserList(pageNum, pageSize);
-		res.put("data", users);
-		return res;
-	}
-
-	@RequestMapping(value = "/exportUser.do")
-	@ResponseBody
-	public Map<String, Object> exportUser(HttpServletResponse response, int pageNum,
-			int pageSize) throws Exception {
-		Map<String, Object> res = new HashMap<>();
-		System.out.println(pageNum + " " + pageSize);
-		InputStream is = userService.getInputStream(pageNum, pageSize);
-		write("1.xls", is);
-		response.setContentType("application/vnd.ms-excel");
-		response.setHeader("contentDisposition",
-				"attachment;filename=AllUsers.xls");
-		ServletOutputStream output = response.getOutputStream();
-		IOUtils.copy(is, output);
-		res.put("filePath", "D:/1.xls");
-		return res;
-	}
-
-	private void write(String filename, InputStream in) {
-		String path = "D:/";
-		File file = new File(path);
-		if (!file.exists()) {
-			if (!file.mkdirs()) {// 若创建文件夹不成功
-				System.out.println("Unable to create external cache directory");
-			}
-		}
-		File targetfile = new File(path + filename);
-		OutputStream os = null;
+		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			os = new FileOutputStream(targetfile);
-			int ch = 0;
-			while ((ch = in.read()) != -1) {
-				os.write(ch);
-			}
-			os.flush();
+			List<UserEntity> users = userService.getUserList(pageNum, pageSize);
+			resultMap.put("data", users);
+			resultMap.put("result", "success");
 		} catch (Exception e) {
+			resultMap.put("result", "error");
 			e.printStackTrace();
-		} finally {
-			try {
-				os.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}
+		return resultMap;
+	}	
+	
+	/**
+	 * 根据ID获取用户信息
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月14日
+	 * @param userId
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/user/getUserById.do", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getUserById(Integer userId){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			UserEntity userEntity = userService.getUserById(userId);
+			resultMap.put("data", userEntity);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e);
+		}
+		return resultMap;
 	}
 
 }

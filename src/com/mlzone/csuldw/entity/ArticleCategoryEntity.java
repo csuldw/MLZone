@@ -1,5 +1,13 @@
 package com.mlzone.csuldw.entity;
 
+/**
+ * 
+ * Date: 2017年10月14日 下午11:00:56 
+ * 
+ * @author liudiwei 
+ * @version  
+ * @since JDK 1.7
+ */
 public class ArticleCategoryEntity {
     private Integer id;
 

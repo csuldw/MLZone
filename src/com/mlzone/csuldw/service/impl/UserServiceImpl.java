@@ -8,20 +8,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.WriteExcel;
 import com.mlzone.csuldw.dao.UserMapper;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
 
+/**
+ * 
+ * Date: 2017年10月14日 下午10:59:59 
+ * 
+ * @author liudiwei 
+ * @version  
+ * @since JDK 1.7
+ */
 @Service
 @Transactional
 public class UserServiceImpl implements IUserService {
 
 	@Autowired
-	public UserMapper userMapper;
+	private UserMapper userMapper;
 
 	@Override
 	public String findNicknameById(String id) {
@@ -62,5 +68,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public int updateUserById(UserEntity userEntity) {
 		return userMapper.updateUserById(userEntity);
+	}
+
+	@Override
+	public UserEntity getUserById(Integer id) {
+		return userMapper.getUserById(id);
 	}
 }

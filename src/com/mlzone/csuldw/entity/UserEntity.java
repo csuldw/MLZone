@@ -1,5 +1,13 @@
 package com.mlzone.csuldw.entity;
 
+/**
+ * 
+ * Date: 2017年10月14日 下午11:01:17 
+ * 
+ * @author liudiwei 
+ * @version  
+ * @since JDK 1.7
+ */
 public class UserEntity {
     private Integer id;
 
