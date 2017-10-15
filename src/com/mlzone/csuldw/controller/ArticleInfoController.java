@@ -130,4 +130,59 @@ public class ArticleInfoController {
 		return resultMap;
 	}
 	
+	/**
+	 * 根据参数获取文章列表
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月15日
+	 * @param keyword
+	 * @param tag
+	 * @param category
+	 * @param pageSize
+	 * @param pageNum
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/articleInfo/getArticleInfoListByParams.do")
+	@ResponseBody
+	public Map<String, Object> getArticleInfoListByParams(String keyword, String tag, String category, int pageSize, int pageNum){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			List<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByParams(keyword, tag, category, pageNum, pageSize);
+			resultMap.put("data", articleInfoList);
+			resultMap.put("result", "success");
+
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e);
+		}
+		return resultMap;
+	}
+	
+	/**
+	 * 根据参数统计文章数量
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月15日
+	 * @param keyword
+	 * @param tag
+	 * @param category
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/articleInfo/countArticleInfoByParams.do")
+	@ResponseBody
+	public Map<String, Object> countArticleInfoByParams(String keyword, String tag, String category){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			int articleNum = articleInfoService.countArticleInfoByParams(keyword, tag, category);
+			resultMap.put("articleNum", articleNum);
+			resultMap.put("result", "success");
+
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e);
+		}
+		return resultMap;
+	}
 }

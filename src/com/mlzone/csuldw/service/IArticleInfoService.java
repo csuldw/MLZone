@@ -26,6 +26,6 @@ public interface IArticleInfoService {
     
     List<ArticleInfoEntity>getArticleInfoListByParams(String keyword, String tag, String category, int pageNum, int pageSize);
 
-    int countArticleInfoByParams(String keyword, String tag, String category, int pageNum, int pageSize);
+    int countArticleInfoByParams(String keyword, String tag, String category);
 
 }

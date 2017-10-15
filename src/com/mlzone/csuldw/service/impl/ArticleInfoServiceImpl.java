@@ -52,8 +52,7 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	}
 
 	@Override
-	public int countArticleInfoByParams(String keyword, String tag,	String category, int pageNum, int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
+	public int countArticleInfoByParams(String keyword, String tag,	String category) {
 		return articleInfoMapper.countArticleInfoByParams(keyword, tag, category);
 	}
 

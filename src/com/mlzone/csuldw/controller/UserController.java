@@ -141,6 +141,4 @@ public class UserController {
 		}
 		return resultMap;
 	}
-
-
 }
