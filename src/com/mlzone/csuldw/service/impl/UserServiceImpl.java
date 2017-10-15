@@ -74,4 +74,13 @@ public class UserServiceImpl implements IUserService {
 	public UserEntity getUserById(Integer id) {
 		return userMapper.getUserById(id);
 	}
+
+	@Override
+	public boolean checkUserExistByUsername(String username) {
+		boolean isExist = false;
+		if(userMapper.checkUserExistByUsername(username) > 0){
+			isExist = true;
+		}
+		return isExist;
+	}
 }

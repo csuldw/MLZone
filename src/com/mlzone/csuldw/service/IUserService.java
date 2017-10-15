@@ -26,5 +26,7 @@ public interface IUserService {
     public InputStream getInputStream(int pageNum, int pageSize) throws Exception;
     
     public UserEntity getUserById(Integer id);
+    
+    boolean checkUserExistByUsername(String username);
 
 }

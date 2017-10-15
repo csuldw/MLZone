@@ -28,7 +28,7 @@ public class UserController {
 	private IUserService userService;
 
 	/**
-	 * 保存用户
+	 * 保存或更新用户名
 	 *
 	 * Author:liudiwei
 	 * Date:2017年10月14日
@@ -117,5 +117,30 @@ public class UserController {
 		}
 		return resultMap;
 	}
+	
+	/**
+	 * 检查用户名是否存在
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月15日
+	 * @param username
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/user/checkUserExistByUsername.do")
+	@ResponseBody
+	public Map<String, Object> checkUserExistByUsername(String username){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			boolean isExist = userService.checkUserExistByUsername(username);
+			resultMap.put("isExist", isExist);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e);
+		}
+		return resultMap;
+	}
+
 
 }

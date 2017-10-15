@@ -49,7 +49,6 @@
 			#{recommendDate,jdbcType=VARCHAR}
 		)
 		ON DUPLICATE KEY UPDATE
-			id = #{id,jdbcType=INTEGER},
 			title = #{title,jdbcType=VARCHAR},
 			link = #{link,jdbcType=VARCHAR},
 			source = #{source,jdbcType=VARCHAR},

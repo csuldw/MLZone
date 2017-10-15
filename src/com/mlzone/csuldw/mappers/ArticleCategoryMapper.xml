@@ -37,7 +37,6 @@
 			#{description,jdbcType=VARCHAR}
 		)
 		ON DUPLICATE KEY UPDATE
-			id = #{id,jdbcType=INTEGER},
 			category_name = #{categoryName,jdbcType=VARCHAR},
 			parent_id = #{parentId,jdbcType=INTEGER},
 			description = #{description,jdbcType=VARCHAR}

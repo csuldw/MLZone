@@ -5,6 +5,7 @@ import java.util.List;
 import com.mlzone.csuldw.entity.UserEntity;
 
 public interface UserMapper {
+	
     int deleteByPrimaryKey(Integer id);
 
     /**
@@ -17,6 +18,17 @@ public interface UserMapper {
      * @since
      */
     int saveOrUpdateUser(UserEntity userEntity);
+    
+    /**
+     * 保存用户
+     *
+     * Author:liudiwei
+     * Date:2017年10月15日
+     * @param userEntity
+     * @return
+     * @since
+     */
+    int saveUser(UserEntity userEntity);
 
     int insertSelective(UserEntity userEntity);
 
@@ -55,5 +67,16 @@ public interface UserMapper {
      * @since
      */
     UserEntity getUserById(Integer id);
+    
+    /**
+     * 
+     *
+     * Author:liudiwei
+     * Date:2017年10月15日
+     * @param username
+     * @return
+     * @since
+     */
+    int checkUserExistByUsername(String username);
     
 }

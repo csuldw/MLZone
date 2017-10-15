@@ -46,7 +46,6 @@
 			#{sendDate,jdbcType=VARCHAR}
 		)
 		ON DUPLICATE KEY UPDATE
-			id = #{id,jdbcType=INTEGER},
 			content = #{content,jdbcType=VARCHAR},
 			from_user_id = #{fromUserId,jdbcType=INTEGER},
 			to_user_id = #{toUserId,jdbcType=INTEGER},

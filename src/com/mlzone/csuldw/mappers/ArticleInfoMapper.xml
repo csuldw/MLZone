@@ -49,7 +49,6 @@
 			#{publicDate,jdbcType=VARCHAR}
 		) 
 		ON DUPLICATE KEY UPDATE
-			id = #{id,jdbcType=INTEGER},
 			title = #{title,jdbcType=VARCHAR},
 			file_path = #{filePath,jdbcType=VARCHAR},
 			user_id = #{userId,jdbcType=INTEGER},

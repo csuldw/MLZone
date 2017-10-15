@@ -35,6 +35,44 @@
 		delete from tb_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
+	
+	<insert id="saveUser" parameterType="com.mlzone.csuldw.entity.UserEntity">
+		insert into tb_user 
+		(
+			username, 
+			nickname,
+			password, 
+			sex, 
+			id_card,
+			birthday, 
+			phone_number, 
+			address,
+			email, 
+			status, 
+			image,
+			user_type, 
+			account_source, 
+			reg_date
+		)
+		values 
+		(
+			#{username,jdbcType=VARCHAR},
+			#{nickname,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			#{sex,jdbcType=VARCHAR}, 
+			#{idCard,jdbcType=VARCHAR},
+			#{birthday,jdbcType=VARCHAR}, 
+			#{phoneNumber,jdbcType=VARCHAR},
+			#{address,jdbcType=VARCHAR},
+			#{email,jdbcType=VARCHAR}, 
+			#{status,jdbcType=VARCHAR}, 
+			#{image,jdbcType=VARCHAR},
+			#{userType,jdbcType=INTEGER}, 
+			#{accountSource,jdbcType=INTEGER},
+			#{regDate,jdbcType=VARCHAR}
+		)
+	</insert>
+	
 	<insert id="saveOrUpdateUser" parameterType="com.mlzone.csuldw.entity.UserEntity">
 		insert into tb_user 
 		(
@@ -73,7 +111,6 @@
 			#{regDate,jdbcType=VARCHAR}
 		)
 		ON DUPLICATE KEY UPDATE 
-				id = #{id,jdbcType=INTEGER},
 				username = #{username,jdbcType=VARCHAR},
 				nickname = #{nickname,jdbcType=VARCHAR},
 				password = #{password,jdbcType=VARCHAR},
@@ -259,5 +296,9 @@
 	
 	<select id="findNicknameById" parameterType="String" resultType="String">
 		select nickname from tb_user WHERE id=#{id}
+	</select>
+	
+	<select id="checkUserExistByUsername" parameterType="String" resultType="java.lang.Integer">
+		select count(*) from tb_user where username=#{username}
 	</select>
 </mapper>
