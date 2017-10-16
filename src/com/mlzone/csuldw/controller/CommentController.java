@@ -131,7 +131,7 @@ public class CommentController {
 		return resultMap;
 	}
 	
-	@RequestMapping(value = "/comment/getCommentListByArticleId.do")
+	@RequestMapping(value = "/comment/countCommentByArticleId.do")
 	@ResponseBody
 	public Map<String, Object> countCommentByArticleId(Integer articleId){
 		Map<String, Object> resultMap = new HashMap<>();
