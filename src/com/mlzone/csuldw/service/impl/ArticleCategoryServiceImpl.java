@@ -3,7 +3,7 @@ package com.mlzone.csuldw.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mlzone.csuldw.dao.ArticleCategoryMapper;
+import com.mlzone.csuldw.dao.IArticleCategoryMapper;
 import com.mlzone.csuldw.entity.ArticleCategoryEntity;
 import com.mlzone.csuldw.service.IArticleCategoryService;
 
@@ -19,7 +19,7 @@ import com.mlzone.csuldw.service.IArticleCategoryService;
 public class ArticleCategoryServiceImpl implements IArticleCategoryService {
 
 	@Autowired
-	private ArticleCategoryMapper articleCategoryMapper; 
+	private IArticleCategoryMapper articleCategoryMapper; 
 	
 	@Override
 	public ArticleCategoryEntity getArticleCategoryById(Integer id) {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mlzone.csuldw.dao.RecommendationMapper;
+import com.mlzone.csuldw.dao.IRecommendationMapper;
 import com.mlzone.csuldw.entity.RecommendationEntity;
 import com.mlzone.csuldw.service.IRecommendationService;
 
@@ -21,7 +21,7 @@ import com.mlzone.csuldw.service.IRecommendationService;
 public class RecommendationServiceImpl implements IRecommendationService {
 
 	@Autowired
-	RecommendationMapper recommendationMapper;
+	IRecommendationMapper recommendationMapper;
 	
 	@Override
 	public int deleteRecommendationById(Integer id) {

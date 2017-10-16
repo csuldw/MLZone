@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mlzone.csuldw.entity.CommentEntity;
 
-public interface CommentMapper {
+public interface ICommentMapper {
 	/**
 	 * 根据评论ID删除评论
 	 *

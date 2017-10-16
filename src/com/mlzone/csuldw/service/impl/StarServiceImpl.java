@@ -2,7 +2,7 @@ package com.mlzone.csuldw.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.mlzone.csuldw.dao.StarMapper;
+import com.mlzone.csuldw.dao.IStarMapper;
 import com.mlzone.csuldw.entity.StarEntity;
 import com.mlzone.csuldw.service.IStarService;
 
@@ -17,7 +17,7 @@ import com.mlzone.csuldw.service.IStarService;
 @Service
 public class StarServiceImpl implements IStarService {
 
-	StarMapper starMapper;
+	IStarMapper starMapper;
 	@Override
 	public int deleteStarById(Integer id) {
 		return starMapper.deleteStarById(id);

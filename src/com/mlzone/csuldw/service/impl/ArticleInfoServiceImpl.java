@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
-import com.mlzone.csuldw.dao.ArticleInfoMapper;
+import com.mlzone.csuldw.dao.IArticleInfoMapper;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 import com.mlzone.csuldw.service.IArticleInfoService;
 
@@ -22,7 +22,7 @@ import com.mlzone.csuldw.service.IArticleInfoService;
 public class ArticleInfoServiceImpl implements IArticleInfoService {
 
 	@Autowired
-	ArticleInfoMapper articleInfoMapper;
+	IArticleInfoMapper articleInfoMapper;
 	
 	@Override
 	public int deleteArticleInfoById(Integer id) {

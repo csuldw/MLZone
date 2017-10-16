@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mlzone.csuldw.entity.UserEntity;
 
-public interface UserMapper {
+public interface IUserMapper {
 	
     int deleteByPrimaryKey(Integer id);
 

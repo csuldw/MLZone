@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 
-public interface ArticleInfoMapper {
+public interface IArticleInfoMapper {
 	
 	/**
 	 * 根据ID删除文章

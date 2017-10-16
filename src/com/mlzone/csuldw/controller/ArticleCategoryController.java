@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mlzone.csuldw.entity.ArticleCategoryEntity;
-import com.mlzone.csuldw.service.impl.ArticleCategoryServiceImpl;
+import com.mlzone.csuldw.service.IArticleCategoryService;
 
 /**
  * 
@@ -24,7 +25,7 @@ import com.mlzone.csuldw.service.impl.ArticleCategoryServiceImpl;
 public class ArticleCategoryController {
 	
 	@Autowired
-	private ArticleCategoryServiceImpl articleCategoryServiceImpl;
+	private IArticleCategoryService articleCategoryService;
 	
 	/**
 	 * 根据ID获取文章类别
@@ -40,7 +41,7 @@ public class ArticleCategoryController {
 	public Map<String, Object> getArticleCategoryById(Integer id){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			ArticleCategoryEntity articleCategoryEntity = articleCategoryServiceImpl.getArticleCategoryById(id);
+			ArticleCategoryEntity articleCategoryEntity = articleCategoryService.getArticleCategoryById(id);
 			resultMap.put("date", articleCategoryEntity);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -64,7 +65,7 @@ public class ArticleCategoryController {
 	public Map<String, Object> saveOrUpdateArticleCategory(ArticleCategoryEntity articleCategoryEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			int saveResult = articleCategoryServiceImpl.saveOrUpdateArticleCategory(articleCategoryEntity);
+			int saveResult = articleCategoryService.saveOrUpdateArticleCategory(articleCategoryEntity);
 			if(saveResult == 1){
 				resultMap.put("result", "success"); 
 			}else{

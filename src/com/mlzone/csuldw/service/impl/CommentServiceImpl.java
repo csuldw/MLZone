@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mlzone.csuldw.dao.CommentMapper;
+import com.mlzone.csuldw.dao.ICommentMapper;
 import com.mlzone.csuldw.entity.CommentEntity;
 import com.mlzone.csuldw.service.ICommentService;
 
@@ -21,7 +21,7 @@ import com.mlzone.csuldw.service.ICommentService;
 public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
-	CommentMapper commentMapper;
+	ICommentMapper commentMapper;
 	
 	@Override
 	public int deleteCommentById(Integer id) {

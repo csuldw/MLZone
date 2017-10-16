@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.mlzone.csuldw.common.WriteExcel;
-import com.mlzone.csuldw.dao.UserMapper;
+import com.mlzone.csuldw.dao.IUserMapper;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
 
@@ -27,7 +27,7 @@ import com.mlzone.csuldw.service.IUserService;
 public class UserServiceImpl implements IUserService {
 
 	@Autowired
-	private UserMapper userMapper;
+	private IUserMapper userMapper;
 
 	@Override
 	public String findNicknameById(String id) {

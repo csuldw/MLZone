@@ -12,8 +12,10 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,7 +24,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
 
+@Controller
 public class TestController {
+	
+	private static Logger logger = Logger.getLogger(TestController.class);
 
 	@Autowired
 	private IUserService userService;
@@ -30,7 +35,10 @@ public class TestController {
 	@RequestMapping(value = "/hello.do")
 	public String find(HttpServletRequest request) {
 		String age = userService.findNicknameById("1");
-		System.out.println(age);// 如果实验成功，在控制台会打印年龄25
+		logger.info(age);// 如果实验成功，在控制台会打印年龄25
+		logger.info("info ");
+		logger.error("error");
+		logger.warn("warn");
 		return "index";
 	}
 

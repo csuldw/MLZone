@@ -2,7 +2,7 @@ package com.mlzone.csuldw.dao;
 
 import com.mlzone.csuldw.entity.StarEntity;
 
-public interface StarMapper {
+public interface IStarMapper {
 	/**
 	 * 取消赞
 	 *

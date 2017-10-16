@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mlzone.csuldw.entity.RecommendationEntity;
 
-public interface RecommendationMapper {
+public interface IRecommendationMapper {
 	/**
 	 * 根据推荐ID删除该推荐
 	 *

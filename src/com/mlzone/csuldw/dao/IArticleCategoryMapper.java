@@ -2,7 +2,7 @@ package com.mlzone.csuldw.dao;
 
 import com.mlzone.csuldw.entity.ArticleCategoryEntity;
 
-public interface ArticleCategoryMapper {
+public interface IArticleCategoryMapper {
     int deleteByPrimaryKey(Integer id);
 
     /**
