@@ -294,7 +294,16 @@
 		SELECT *
 		FROM tb_user
 		WHERE 1 = 1
-		AND concat(username, ifnull(address, ''), ifnull(email, ''), ifnull(birthday, ''))  LIKE '%' || #{keywords}||'%'
+		<if test="keywords != null and keywords != ''">
+			AND concat(username, ifnull(address, ''), ifnull(email, ''), ifnull(birthday, ''))  
+			LIKE CONCAT('%',#{keywords},'%')
+<!-- 			AND CONCAT_WS(
+			    '/-/',
+			    username, 
+			    address, 
+			    email
+			) LIKE CONCAT('%',#{keywords},'%') -->
+		</if>
 	</select>
 	
 	<select id="findNicknameById" parameterType="String" resultType="String">
