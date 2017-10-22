@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.WriteExcel;
 import com.mlzone.csuldw.dao.IUserMapper;
 import com.mlzone.csuldw.entity.UserEntity;
@@ -36,16 +37,23 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public List<UserEntity> getUserList(int pageNum, int pageSize) {
+	public PageInfo<UserEntity> getUserListByParam(String keywords, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<UserEntity> users = userMapper.getUserList();
+		List<UserEntity> users = userMapper.getUserListByParam(keywords);
+		PageInfo<UserEntity> userPage= new PageInfo<UserEntity>(users);
+		return userPage;
+	}
+	
+	@Override
+	public List<UserEntity> getUserList() {
+		List<UserEntity> users = userMapper.getUserListByParam(null);
 		return users;
 	}
 	
 	@Override
 	public InputStream getInputStream(int pageNum, int pageSize) throws Exception {
 		String[] title = new String[] { "id", "username", "age"};
-		List<UserEntity> users = getUserList(pageNum, pageSize);
+		List<UserEntity> users = getUserList();
 		List<Object[]> dataList = new ArrayList<Object[]>();
 		for (int i = 0; i < users.size(); i++) {
 			Object[] obj = new Object[4];

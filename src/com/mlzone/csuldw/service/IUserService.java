@@ -3,6 +3,7 @@ package com.mlzone.csuldw.service;
 import java.io.InputStream;
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.entity.UserEntity;
 
 /**
@@ -21,7 +22,9 @@ public interface IUserService {
     
     public int updateUserById(UserEntity userEntity);
     
-    public List<UserEntity> getUserList(int pageNum, int pageSize);
+    public PageInfo<UserEntity> getUserListByParam(String keywords, int pageNum, int pageSize);
+
+    public List<UserEntity> getUserList();
 
     public InputStream getInputStream(int pageNum, int pageSize) throws Exception;
     

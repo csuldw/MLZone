@@ -2,6 +2,8 @@ package com.mlzone.csuldw.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mlzone.csuldw.entity.UserEntity;
 
 public interface IUserMapper {
@@ -55,7 +57,7 @@ public interface IUserMapper {
      * @return
      * @since
      */
-    List<UserEntity> getUserList(); 
+    List<UserEntity> getUserListByParam(@Param("keywords") String keywords); 
 
     /**
      * 根据用户ID获取用户信息

@@ -15,15 +15,15 @@
 		<result column="status" property="status" jdbcType="VARCHAR" />
 		<result column="image" property="image" jdbcType="VARCHAR" />
 		<result column="user_type" property="userType" jdbcType="INTEGER" />
-		<result column="account_source" property="accountSource"
-			jdbcType="INTEGER" />
+		<result column="account_source" property="accountSource" jdbcType="INTEGER" />
 		<result column="reg_date" property="regDate" jdbcType="VARCHAR" />
 	</resultMap>
+	
 	<sql id="Base_Column_List">
 		id, username, nickname, password, sex, id_card, birthday, phone_number,
-		address,
-		email, status, image, user_type, account_source, reg_date
+		address, email, status, image, user_type, account_source, reg_date
 	</sql>
+	
 	<select id="getUserById" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
 		select
@@ -290,8 +290,11 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
  	
- 	<select id="getUserList" resultType="com.mlzone.csuldw.entity.UserEntity">
-		select * from tb_user
+ 	<select id="getUserListByParam" resultType="com.mlzone.csuldw.entity.UserEntity">		
+		SELECT *
+		FROM tb_user
+		WHERE 1 = 1
+		AND concat(username, ifnull(address, ''), ifnull(email, ''), ifnull(birthday, ''))  LIKE '%' || #{keywords}||'%'
 	</select>
 	
 	<select id="findNicknameById" parameterType="String" resultType="String">
