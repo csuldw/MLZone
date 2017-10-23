@@ -295,14 +295,12 @@
 		FROM tb_user
 		WHERE 1 = 1
 		<if test="keywords != null and keywords != ''">
-			AND concat(username, ifnull(address, ''), ifnull(email, ''), ifnull(birthday, ''))  
-			LIKE CONCAT('%',#{keywords},'%')
-<!-- 			AND CONCAT_WS(
+			AND CONCAT_WS(
 			    '/-/',
 			    username, 
 			    address, 
 			    email
-			) LIKE CONCAT('%',#{keywords},'%') -->
+			) LIKE CONCAT('%',#{keywords},'%')
 		</if>
 	</select>
 	

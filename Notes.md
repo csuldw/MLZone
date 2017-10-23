@@ -1,3 +1,9 @@
+### 20171023
+
+1. 修复中文搜索无法获取结果BUG
+	- mybatis数据库配置中的url中增加`?useUnicode=true&amp;characterEncoding=UTF-8`
+2. 修改搜索方式，使用concat_ws进行搜索
+
 ### 20171022
 
 1. 修改获取用户列表接口，增加分页

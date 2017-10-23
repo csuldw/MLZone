@@ -84,11 +84,12 @@ public class UserController {
 		return resultMap;
 	}
 
-	@RequestMapping(value = "/user/getUserListByParam.do")
+	@RequestMapping(value = "/user/getUserListByParam.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> getUserListByParam(String keywords, int pageNum, int pageSize) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			log.info("keywords:" + keywords);
 			PageInfo<UserEntity> users = userService.getUserListByParam(keywords, pageNum, pageSize);
 			resultMap.put("data", users);
 			resultMap.put("result", "success");
