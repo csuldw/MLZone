@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ import com.mlzone.csuldw.service.ICommentService;
 @Controller
 public class CommentController {
 	
+	private static Logger log = Logger.getLogger(CommentController.class);
+
+	
 	@Autowired
 	ICommentService commentService;
 	
@@ -42,14 +46,17 @@ public class CommentController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int saveResult = commentService.saveOrUpdateComment(commentEntity);
-			if(saveResult == 1){
+			if(saveResult > 0){
 				resultMap.put("result", "success");
 			}else{
-				resultMap.put("result", "success");
+				resultMap.put("result", "error");
+				resultMap.put("info", "数据保存失败！"); 
+
 			}
 		} catch (Exception e) {
-			resultMap.put("result", "success");
-			System.out.println(e);
+			resultMap.put("result", "error");
+			resultMap.put("info", "数据库操作异常！");
+			log.info(e.toString());
 		}
 		return resultMap;
 	}

@@ -38,9 +38,9 @@ public interface IStarMapper {
 
     int insertSelective(StarEntity starEntity);
 
-    StarEntity selectByPrimaryKey(Integer id);
+    StarEntity selectById(Integer id);
 
-    int updateByPrimaryKeySelective(StarEntity starEntity);
+    int updateByIdSelective(StarEntity starEntity);
 
-    int updateByPrimaryKey(StarEntity starEntity);
+    int updateById(StarEntity starEntity);
 }

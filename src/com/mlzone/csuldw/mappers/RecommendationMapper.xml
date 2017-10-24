@@ -7,26 +7,27 @@
 		<result column="link" property="link" jdbcType="VARCHAR" />
 		<result column="source" property="source" jdbcType="VARCHAR" />
 		<result column="author" property="author" jdbcType="VARCHAR" />
-		<result column="recommendation_type" property="recommendationType"
-			jdbcType="INTEGER" />
-		<result column="catetory_id" property="catetoryId" jdbcType="INTEGER" />
-		<result column="recommend_date" property="recommendDate"
-			jdbcType="VARCHAR" />
+		<result column="recommendationType" property="recommendationType" jdbcType="INTEGER" />
+		<result column="categoryId" property="categoryId" jdbcType="INTEGER" />
+		<result column="recommendDate" property="recommendDate" jdbcType="VARCHAR" />
+		<collection property="articleCategoryEntity" column="categoryId" ofType="com.mlzone.csuldw.entity.ArticleCategoryEntity" select="com.mlzone.csuldw.dao.IArticleCategoryMapper.getArticleCategoryById"/>
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, title, link, source, author, recommendation_type, catetory_id,
+		id, title, link, source, author, recommendation_type, category_id,
 		recommend_date
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_recommendation
 		where id = #{id,jdbcType=INTEGER}
 	</select>
+	
 	<delete id="deleteRecommendationById" parameterType="java.lang.Integer">
 		delete from tb_recommendation where id = #{id,jdbcType=INTEGER}
 	</delete>
+	
 	<insert id="saveOrUpdateRecommendation" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		insert into tb_recommendation (
 			id, 
@@ -35,7 +36,7 @@
 			source, 
 			author, 
 			recommendation_type,
-			catetory_id, 
+			category_id, 
 			recommend_date
 		)
 		values (
@@ -45,7 +46,7 @@
 			#{source,jdbcType=VARCHAR}, 
 			#{author,jdbcType=VARCHAR}, 
 			#{recommendationType,jdbcType=INTEGER},
-			#{catetoryId,jdbcType=INTEGER}, 
+			#{categoryId,jdbcType=INTEGER}, 
 			#{recommendDate,jdbcType=VARCHAR}
 		)
 		ON DUPLICATE KEY UPDATE
@@ -54,7 +55,7 @@
 			source = #{source,jdbcType=VARCHAR},
 			author = #{author,jdbcType=VARCHAR},
 			recommendation_type = #{recommendationType,jdbcType=INTEGER},
-			catetory_id = #{catetoryId,jdbcType=INTEGER},
+			category_id = #{categoryId,jdbcType=INTEGER},
 			recommend_date = #{recommendDate,jdbcType=VARCHAR}
 	</insert>
 	<insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
@@ -78,8 +79,8 @@
 			<if test="recommendationType != null">
 				recommendation_type,
 			</if>
-			<if test="catetoryId != null">
-				catetory_id,
+			<if test="categoryId != null">
+				category_id,
 			</if>
 			<if test="recommendDate != null">
 				recommend_date,
@@ -104,15 +105,15 @@
 			<if test="recommendationType != null">
 				#{recommendationType,jdbcType=INTEGER},
 			</if>
-			<if test="catetoryId != null">
-				#{catetoryId,jdbcType=INTEGER},
+			<if test="categoryId != null">
+				#{categoryId,jdbcType=INTEGER},
 			</if>
 			<if test="recommendDate != null">
 				#{recommendDate,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
+	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		update tb_recommendation
 		<set>
 			<if test="title != null">
@@ -130,8 +131,8 @@
 			<if test="recommendationType != null">
 				recommendation_type = #{recommendationType,jdbcType=INTEGER},
 			</if>
-			<if test="catetoryId != null">
-				catetory_id = #{catetoryId,jdbcType=INTEGER},
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=INTEGER},
 			</if>
 			<if test="recommendDate != null">
 				recommend_date = #{recommendDate,jdbcType=VARCHAR},
@@ -139,15 +140,43 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
+	<update id="updateById" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		update tb_recommendation
 		set title = #{title,jdbcType=VARCHAR},
 		link = #{link,jdbcType=VARCHAR},
 		source = #{source,jdbcType=VARCHAR},
 		author = #{author,jdbcType=VARCHAR},
 		recommendation_type = #{recommendationType,jdbcType=INTEGER},
-		catetory_id = #{catetoryId,jdbcType=INTEGER},
+		category_id = #{categoryId,jdbcType=INTEGER},
 		recommend_date = #{recommendDate,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<select id="getRecommendationListByParam" resultMap="BaseResultMap">
+		SELECT
+			t1.id AS id,
+			t1.title AS title,
+			t1.link AS link,
+			t1.source AS source,
+			t1.author AS author,
+			t1.recommendation_type AS recommendationType,
+			t1.category_id categoryId,
+			t1.recommend_date
+		from tb_recommendation t1
+		left join tb_article_category t2 on t2.id = t1.category_id
+		where 1 = 1
+		<if test="keywords != null and keywords != ''">
+			AND CONCAT_WS(
+			    '/-/',
+			    t1.title, 
+			    t1.link,
+			    t1.source,
+			    t1.author,
+			    t1.recommendation_type,
+			    t1.recommend_date,
+			    t2.category_name,
+			    t2.description
+			) LIKE CONCAT('%',#{keywords},'%')
+		</if>
+	</select>
 </mapper>

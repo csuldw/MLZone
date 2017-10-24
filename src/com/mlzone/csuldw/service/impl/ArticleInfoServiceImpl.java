@@ -46,14 +46,14 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	}
 
 	@Override
-	public List<ArticleInfoEntity> getArticleInfoListByParams(String keyword, String tag, String category, int pageNum, int pageSize) {
+	public List<ArticleInfoEntity> getArticleInfoListByParams(String keywords, String tag, String category, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		return articleInfoMapper.getArticleInfoListByParams(keyword, tag, category);
+		return articleInfoMapper.getArticleInfoListByParams(keywords, tag, category);
 	}
 
 	@Override
-	public int countArticleInfoByParams(String keyword, String tag,	String category) {
-		return articleInfoMapper.countArticleInfoByParams(keyword, tag, category);
+	public int countArticleInfoByParams(String keywords, String tag,String category) {
+		return articleInfoMapper.countArticleInfoByParams(keywords, tag, category);
 	}
 
 }

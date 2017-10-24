@@ -1,9 +1,12 @@
 package com.mlzone.csuldw.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mlzone.csuldw.entity.ArticleCategoryEntity;
 
 public interface IArticleCategoryMapper {
-    int deleteByPrimaryKey(Integer id);
+	
+    int deleteById(Integer id);
 
     /**
      * 保存或更新文章类型
@@ -27,9 +30,9 @@ public interface IArticleCategoryMapper {
      * @return
      * @since
      */
-    ArticleCategoryEntity getArticleCategoryById(Integer id);
+    ArticleCategoryEntity getArticleCategoryById(@Param("categoryId") Integer id);
 
-    int updateByPrimaryKeySelective(ArticleCategoryEntity articleCategoryEntity);
+    int updateByIdSelective(ArticleCategoryEntity articleCategoryEntity);
 
-    int updateByPrimaryKey(ArticleCategoryEntity articleCategoryEntity);
+    int updateById(ArticleCategoryEntity articleCategoryEntity);
 }

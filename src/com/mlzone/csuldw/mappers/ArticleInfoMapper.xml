@@ -119,7 +119,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		update tb_article_info
 		<set>
 			<if test="title != null">
@@ -149,7 +149,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+	<update id="updateById" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		update tb_article_info
 		set title = #{title,jdbcType=VARCHAR},
 		file_path = #{filePath,jdbcType=VARCHAR},

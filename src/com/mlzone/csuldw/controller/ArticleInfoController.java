@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ import com.mlzone.csuldw.service.IArticleInfoService;
 @Controller
 public class ArticleInfoController {
 	
+	private static Logger log = Logger.getLogger(ArticleInfoController.class);
+	
 	@Autowired
 	private IArticleInfoService articleInfoService;
 	
@@ -41,15 +44,17 @@ public class ArticleInfoController {
 	public Map<String, Object> saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			int insertResult = articleInfoService.saveOrUpdateArticleInfo(articleInfoEntity);
-			if(insertResult == 1){
+			int saveResult = articleInfoService.saveOrUpdateArticleInfo(articleInfoEntity);
+			if(saveResult > 0){
 				resultMap.put("result", "success");
 			}else{
 				resultMap.put("result", "error");
+				resultMap.put("info", "数据保存失败！"); 
 			}
 		} catch (Exception e) {
 			resultMap.put("result", "error");
-			System.out.println(e);
+			resultMap.put("info", "数据库操作异常！");
+			log.info(e.toString());
 		}
 		return resultMap;
 	}
@@ -135,7 +140,7 @@ public class ArticleInfoController {
 	 *
 	 * Author:liudiwei
 	 * Date:2017年10月15日
-	 * @param keyword
+	 * @param keywords
 	 * @param tag
 	 * @param category
 	 * @param pageSize
@@ -145,10 +150,10 @@ public class ArticleInfoController {
 	 */
 	@RequestMapping(value = "/articleInfo/getArticleInfoListByParams.do")
 	@ResponseBody
-	public Map<String, Object> getArticleInfoListByParams(String keyword, String tag, String category, int pageSize, int pageNum){
+	public Map<String, Object> getArticleInfoListByParams(String keywords, String tag, String category, int pageSize, int pageNum){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			List<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByParams(keyword, tag, category, pageNum, pageSize);
+			List<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByParams(keywords, tag, category, pageNum, pageSize);
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");
 
@@ -164,7 +169,7 @@ public class ArticleInfoController {
 	 *
 	 * Author:liudiwei
 	 * Date:2017年10月15日
-	 * @param keyword
+	 * @param keywords
 	 * @param tag
 	 * @param category
 	 * @return
@@ -172,10 +177,10 @@ public class ArticleInfoController {
 	 */
 	@RequestMapping(value = "/articleInfo/countArticleInfoByParams.do")
 	@ResponseBody
-	public Map<String, Object> countArticleInfoByParams(String keyword, String tag, String category){
+	public Map<String, Object> countArticleInfoByParams(String keywords, String tag, String category){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			int articleNum = articleInfoService.countArticleInfoByParams(keyword, tag, category);
+			int articleNum = articleInfoService.countArticleInfoByParams(keywords, tag, category);
 			resultMap.put("articleNum", articleNum);
 			resultMap.put("result", "success");
 

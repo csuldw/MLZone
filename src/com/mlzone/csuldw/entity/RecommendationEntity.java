@@ -21,9 +21,11 @@ public class RecommendationEntity {
 
     private Integer recommendationType;
 
-    private Integer catetoryId;
+    private Integer categoryId;
 
     private String recommendDate;
+    
+    private ArticleCategoryEntity articleCategoryEntity; 
 
     public Integer getId() {
         return id;
@@ -73,12 +75,12 @@ public class RecommendationEntity {
         this.recommendationType = recommendationType;
     }
 
-    public Integer getCatetoryId() {
-        return catetoryId;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCatetoryId(Integer catetoryId) {
-        this.catetoryId = catetoryId;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getRecommendDate() {
@@ -88,4 +90,12 @@ public class RecommendationEntity {
     public void setRecommendDate(String recommendDate) {
         this.recommendDate = recommendDate == null ? null : recommendDate.trim();
     }
+
+	public ArticleCategoryEntity getArticleCategoryEntity() {
+		return articleCategoryEntity;
+	}
+
+	public void setArticleCategoryEntity(ArticleCategoryEntity articleCategoryEntity) {
+		this.articleCategoryEntity = articleCategoryEntity;
+	}
 }

@@ -8,7 +8,7 @@ import com.mlzone.csuldw.entity.UserEntity;
 
 public interface IUserMapper {
 	
-    int deleteByPrimaryKey(Integer id);
+    int deleteById(Integer id);
 
     /**
      * 保存或更新用户
@@ -34,7 +34,7 @@ public interface IUserMapper {
 
     int insertSelective(UserEntity userEntity);
 
-    int updateByPrimaryKeySelective(UserEntity userEntity);
+    int updateByIdSelective(UserEntity userEntity);
 
     /**
      * 根据主键更新user

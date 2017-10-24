@@ -15,8 +15,7 @@
 		id, content, from_user_id, to_user_id, article_id, parent_comment_id,
 		send_date
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_comment
@@ -102,7 +101,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.CommentEntity">
+	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.CommentEntity">
 		update tb_comment
 		<set>
 			<if test="content != null">
@@ -126,7 +125,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.mlzone.csuldw.entity.CommentEntity">
+	<update id="updateById" parameterType="com.mlzone.csuldw.entity.CommentEntity">
 		update tb_comment
 		set content = #{content,jdbcType=VARCHAR},
 		from_user_id = #{fromUserId,jdbcType=INTEGER},

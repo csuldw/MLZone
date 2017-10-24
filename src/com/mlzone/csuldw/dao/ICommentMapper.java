@@ -62,9 +62,9 @@ public interface ICommentMapper {
     
     int insertSelective(CommentEntity commentEntity);
 
-    CommentEntity selectByPrimaryKey(Integer id);
+    CommentEntity selectById(Integer id);
 
-    int updateByPrimaryKeySelective(CommentEntity commentEntity);
+    int updateByIdSelective(CommentEntity commentEntity);
 
-    int updateByPrimaryKey(CommentEntity commentEntity);
+    int updateById(CommentEntity commentEntity);
 }

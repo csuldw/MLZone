@@ -51,33 +51,33 @@ public interface IArticleInfoMapper {
      */
     ArticleInfoEntity getArticelInfoById(Integer id);
 
-    int updateByPrimaryKeySelective(ArticleInfoEntity articleInfoEntity);
+    int updateByIdSelective(ArticleInfoEntity articleInfoEntity);
 
-    int updateByPrimaryKey(ArticleInfoEntity articleInfoEntity);
+    int updateById(ArticleInfoEntity articleInfoEntity);
     
     /**
      * 根据条件查找文章，待完善
      *
      * Author:liudiwei
      * Date:2017年10月14日
-     * @param keyword
+     * @param keywords
      * @param tag
      * @param category
      * @return
      * @since
      */
-    List<ArticleInfoEntity>getArticleInfoListByParams(String keyword, String tag, String category);
+    List<ArticleInfoEntity>getArticleInfoListByParams(String keywords, String tag, String category);
 
     /**
      * 根据条件统计文章数量，待完善
      *
      * Author:liudiwei
      * Date:2017年10月14日
-     * @param keyword
+     * @param keywords
      * @param tag
      * @param category
      * @return
      * @since
      */
-    int countArticleInfoByParams(String keyword, String tag, String category);
+    int countArticleInfoByParams(String keywords, String tag, String category);
 }

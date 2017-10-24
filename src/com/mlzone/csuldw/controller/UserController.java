@@ -46,14 +46,18 @@ public class UserController {
 	public Map<String, Object> saveOrUpdateUser(UserEntity userEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			int insertResult = userService.saveOrUpdateUser(userEntity);
-			if(insertResult == 1){
+			int saveResult = userService.saveOrUpdateUser(userEntity);
+			if(saveResult > 0){
 				resultMap.put("result", "success");
 			}else{
 				resultMap.put("result", "error");
+				resultMap.put("info", "数据保存失败！"); 
+
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			resultMap.put("result", "error");
+			resultMap.put("info", "数据库操作异常！");
+			log.info(e.toString());
 		}
 		return resultMap;
 	}

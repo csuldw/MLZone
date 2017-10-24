@@ -31,7 +31,7 @@
 		from tb_user
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from tb_user
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
@@ -223,7 +223,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.UserEntity">
+	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.UserEntity">
 		update tb_user
 		<set>
 			<if test="username != null">

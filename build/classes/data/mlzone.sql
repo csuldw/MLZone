@@ -63,7 +63,7 @@ CREATE TABLE `tb_recommendation` (
   `source` varchar(32) DEFAULT NULL,
   `author` varchar(16) DEFAULT NULL,
   `recommendation_type` int(11) DEFAULT NULL,
-  `catetory_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
   `recommend_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

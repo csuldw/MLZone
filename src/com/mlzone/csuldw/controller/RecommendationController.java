@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,8 @@ import com.mlzone.csuldw.service.IRecommendationService;
 @Controller
 public class RecommendationController {
 	
+	private static Logger log = Logger.getLogger(RecommendationController.class);
+	
 	@Autowired
 	IRecommendationService recommendationService;
 	
@@ -36,19 +39,23 @@ public class RecommendationController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/user/saveOrUpdateRecommendation.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/recommend/saveOrUpdateRecommendation.do", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> saveOrUpdateRecommendation(RecommendationEntity recommendationEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			int insertResult = recommendationService.saveOrUpdateRecommendation(recommendationEntity);
-			if(insertResult == 1){
+			int saveResult = recommendationService.saveOrUpdateRecommendation(recommendationEntity);
+			if(saveResult > 0){
 				resultMap.put("result", "success");
 			}else{
 				resultMap.put("result", "error");
+				resultMap.put("info", "数据保存失败！"); 
+
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			resultMap.put("result", "error");
+			resultMap.put("info", "数据库操作异常！");
+			log.info(e.toString());
 		}
 		return resultMap;
 	}
@@ -62,7 +69,7 @@ public class RecommendationController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/user/deleteRecommendationById.do")
+	@RequestMapping(value = "/recommend/deleteRecommendationById.do")
 	@ResponseBody
 	public Map<String, Object> deleteRecommendationById(Integer id){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -90,17 +97,17 @@ public class RecommendationController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/user/getRecommendationListByParams.do")
+	@RequestMapping(value = "/recommend/getRecommendationListByParam.do")
 	@ResponseBody
-	public Map<String, Object> getRecommendationListByParams(Integer categoryId, String source, Integer recommendationType){
+	public Map<String, Object> getRecommendationListByParam(String keywords){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			List<RecommendationEntity> recommendationList = recommendationService.getRecommendationListByParams(categoryId, source, recommendationType);
+			List<Map<String, Object>> recommendationList = recommendationService.getRecommendationListByParam(keywords);
 			resultMap.put("data", recommendationList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			resultMap.put("result", "error");
-			System.out.println(e);
+			log.info("获取推荐内容异常：" + e.toString());
 		}
 		return resultMap;
 	}

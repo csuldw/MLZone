@@ -11,8 +11,7 @@
 	<sql id="Base_Column_List">
 		id, from_user_id, to_user_id, comment_id, star_date
 	</sql>
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_star
@@ -66,7 +65,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.mlzone.csuldw.entity.StarEntity">
+	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		update tb_star
 		<set>
 			<if test="fromUserId != null">
@@ -84,7 +83,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateByPrimaryKey" parameterType="com.mlzone.csuldw.entity.StarEntity">
+	<update id="updateById" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		update tb_star
 		set from_user_id = #{fromUserId,jdbcType=INTEGER},
 		to_user_id = #{toUserId,jdbcType=INTEGER},

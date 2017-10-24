@@ -1,6 +1,7 @@
 package com.mlzone.csuldw.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mlzone.csuldw.entity.RecommendationEntity;
 
@@ -18,6 +19,6 @@ public interface IRecommendationService {
     
     int saveOrUpdateRecommendation(RecommendationEntity recommendationEntity);
     
-    List<RecommendationEntity> getRecommendationListByParams(Integer categoryId, String source, Integer recommendationType);
+    List<Map<String, Object>> getRecommendationListByParam(String keywords);
 
 }
