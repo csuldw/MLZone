@@ -1,11 +1,14 @@
 package com.mlzone.csuldw.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.mlzone.csuldw.dao.IRecommendationMapper;
 import com.mlzone.csuldw.entity.RecommendationEntity;
 import com.mlzone.csuldw.service.IRecommendationService;
@@ -26,18 +29,23 @@ public class RecommendationServiceImpl implements IRecommendationService {
 	
 	@Override
 	public int deleteRecommendationById(Integer id) {
-		return recommendationMapper.deleteRecommendationById(id);
+		return recommendationMapper.deleteById(id);
 	}
 
 	@Override
 	public int saveOrUpdateRecommendation(
 			RecommendationEntity recommendationEntity) {
-		return recommendationMapper.saveOrUpdateRecommendation(recommendationEntity);
+		return recommendationMapper.saveOrUpdate(recommendationEntity);
 	}
 
 	@Override
-	public List<Map<String, Object>> getRecommendationListByParam(String keywords) {
-		return recommendationMapper.getRecommendationListByParam(keywords);
+	public Page<RecommendationEntity> getRecommendationListByParam(String keywords, int pageNum, int pageSize) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("keywords", keywords);
+		PageHelper.startPage(pageNum, pageSize);
+		List<RecommendationEntity> recommendationList = recommendationMapper.getListByParam(params);
+		Page<RecommendationEntity> entityPage = (Page<RecommendationEntity>) (recommendationList);
+		return entityPage;
 	}
 
 }

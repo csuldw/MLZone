@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: mlzone
 Target Host: localhost
 Target Database: mlzone
-Date: 2017-10-14 23:47:47
+Date: 2017-10-24 23:54:22
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -15,10 +15,10 @@ DROP TABLE IF EXISTS `tb_article_category`;
 CREATE TABLE `tb_article_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_name` varchar(64) DEFAULT NULL,
-  `parent_id` int(11) DEFAULT NULL,
+  `parent_id` int(11) unsigned zerofill DEFAULT '00000000000',
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_article_info
@@ -35,7 +35,7 @@ CREATE TABLE `tb_article_info` (
   `category_id` int(11) DEFAULT NULL,
   `public_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_comment
@@ -66,7 +66,7 @@ CREATE TABLE `tb_recommendation` (
   `category_id` int(11) DEFAULT NULL,
   `recommend_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_star
@@ -87,10 +87,10 @@ CREATE TABLE `tb_star` (
 DROP TABLE IF EXISTS `tb_user`;
 CREATE TABLE `tb_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(32) DEFAULT NULL,
+  `username` varchar(32) NOT NULL,
   `nickname` varchar(32) DEFAULT NULL,
-  `password` varchar(32) DEFAULT NULL,
-  `sex` varchar(8) DEFAULT NULL,
+  `password` varchar(32) NOT NULL,
+  `sex` int(11) DEFAULT NULL,
   `id_card` varchar(20) DEFAULT NULL,
   `birthday` varchar(16) DEFAULT NULL,
   `phone_number` varchar(32) DEFAULT NULL,
@@ -101,17 +101,22 @@ CREATE TABLE `tb_user` (
   `user_type` int(11) DEFAULT NULL,
   `account_source` int(11) DEFAULT NULL,
   `reg_date` varchar(32) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records 
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('1', null, null, '2', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('2', 'zhangsan1', null, 'admin', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('4', 'zhangsan', null, '1234', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('5', '2', null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('6', '2', null, '2', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('7', '2', null, '2', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('8', '2', null, '2', null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('9', '2', null, '2', null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `tb_article_category` VALUES ('1', '机器学习', '00000000000', 'ML 机器学习相关文章');
+INSERT INTO `tb_article_category` VALUES ('2', '数据库', '00000000000', 'database');
+INSERT INTO `tb_article_category` VALUES ('3', '大数据', '00000000000', '大数据');
+INSERT INTO `tb_recommendation` VALUES ('1', 'Python机器学习', null, 'www', 'csuldw', null, '1', null);
+INSERT INTO `tb_user` VALUES ('1', 'zhangsan1', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('6', 'zhangsa12', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('13', 'zhangsan', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('15', 'zhangsan4', null, 'admin', null, null, null, null, '湖北省', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('19', 'zhangsan41', null, 'admin', null, null, null, null, '北京', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('20', 'zhangsan41222', null, 'admin', null, null, null, null, '深圳', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('23', 'zhangsan412221', null, 'admin', null, null, null, null, '广州', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('25', 'zhangsa', null, 'admin', null, null, null, null, '上海', null, null, null, null, null, null);

@@ -24,8 +24,7 @@
 		address, email, status, image, user_type, account_source, reg_date
 	</sql>
 	
-	<select id="getUserById" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer">
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_user
@@ -36,7 +35,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="saveUser" parameterType="com.mlzone.csuldw.entity.UserEntity">
+	<insert id="save" parameterType="com.mlzone.csuldw.entity.UserEntity">
 		insert into tb_user 
 		(
 			username, 
@@ -126,7 +125,7 @@
 				account_source = #{accountSource,jdbcType=INTEGER},
 				reg_date = #{regDate,jdbcType=VARCHAR}
 	</insert>
-	<insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.UserEntity">
+	<insert id="saveSelective" parameterType="com.mlzone.csuldw.entity.UserEntity">
 		insert into tb_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -223,7 +222,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.UserEntity">
+	<update id="updateSelective" parameterType="com.mlzone.csuldw.entity.UserEntity">
 		update tb_user
 		<set>
 			<if test="username != null">
@@ -271,7 +270,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateUserById" parameterType="com.mlzone.csuldw.entity.UserEntity">
+	<update id="update" parameterType="com.mlzone.csuldw.entity.UserEntity">
 		update tb_user
 		set username = #{username,jdbcType=VARCHAR},
 		nickname = #{nickname,jdbcType=VARCHAR},
@@ -290,7 +289,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
  	
- 	<select id="getUserListByParam" resultType="com.mlzone.csuldw.entity.UserEntity">		
+ 	<select id="getListByParam" parameterType="Map" resultType="com.mlzone.csuldw.entity.UserEntity">		
 		SELECT *
 		FROM tb_user
 		WHERE 1 = 1

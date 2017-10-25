@@ -1,74 +1,10 @@
 package com.mlzone.csuldw.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.mlzone.csuldw.entity.UserEntity;
 
-public interface IUserMapper {
+public interface IUserMapper extends BaseMapper<UserEntity>{
 	
-    int deleteById(Integer id);
-
-    /**
-     * 保存或更新用户
-     *
-     * Author:liudiwei
-     * Date:2017年10月14日
-     * @param userEntity
-     * @return
-     * @since
-     */
-    int saveOrUpdateUser(UserEntity userEntity);
-    
-    /**
-     * 保存用户
-     *
-     * Author:liudiwei
-     * Date:2017年10月15日
-     * @param userEntity
-     * @return
-     * @since
-     */
-    int saveUser(UserEntity userEntity);
-
-    int insertSelective(UserEntity userEntity);
-
-    int updateByIdSelective(UserEntity userEntity);
-
-    /**
-     * 根据主键更新user
-     *
-     * Author:liudiwei
-     * Date:2017年10月14日
-     * @param record
-     * @return
-     * @since
-     */
-    int updateUserById(UserEntity userEntity);
-    
     String findNicknameById(String id);
-    
-    /**
-     * 获取用户列表
-     *
-     * Author:liudiwei
-     * Date:2017年10月14日
-     * @return
-     * @since
-     */
-    List<UserEntity> getUserListByParam(@Param("keywords") String keywords); 
-
-    /**
-     * 根据用户ID获取用户信息
-     *
-     * Author:liudiwei
-     * Date:2017年10月14日
-     * @param id
-     * @return
-     * @since
-     */
-    UserEntity getUserById(Integer id);
     
     /**
      * 

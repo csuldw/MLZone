@@ -25,12 +25,12 @@ public class CommentServiceImpl implements ICommentService {
 	
 	@Override
 	public int deleteCommentById(Integer id) {
-		return commentMapper.deleteCommentById(id);
+		return commentMapper.deleteById(id);
 	}
 
 	@Override
 	public int saveOrUpdateComment(CommentEntity commentEntity) {
-		return commentMapper.saveOrUpdateComment(commentEntity);
+		return commentMapper.saveOrUpdate(commentEntity);
 	}
 
 	@Override

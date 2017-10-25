@@ -38,11 +38,12 @@ public class ArticleCategoryController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/articleCategory/getArticleCategoryById.do")
+	@RequestMapping(value = "/articleCategory/getArticleCategoryById.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> getArticleCategoryById(Integer id){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			log.info(id);
 			ArticleCategoryEntity articleCategoryEntity = articleCategoryService.getArticleCategoryById(id);
 			resultMap.put("date", articleCategoryEntity);
 			resultMap.put("result", "success");

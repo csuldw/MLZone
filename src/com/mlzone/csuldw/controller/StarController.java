@@ -68,7 +68,7 @@ public class StarController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/star/deleteStarById.do")
+	@RequestMapping(value = "/star/deleteStarById.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> deleteStarById(Integer id){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -95,7 +95,7 @@ public class StarController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/star/countStarByCommentId.do")
+	@RequestMapping(value = "/star/countStarByCommentId.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> countStarByCommentId(Integer commentId){
 		Map<String, Object> resultMap = new HashMap<>();

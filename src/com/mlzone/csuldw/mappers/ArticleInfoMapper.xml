@@ -16,17 +16,17 @@
 		id, title, file_path, user_id, keywords, tags, post_type, category_id,
 		public_date
 	</sql>
-	<select id="getArticelInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_article_info
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteArticleInfoById" parameterType="java.lang.Integer">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from tb_article_info
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="saveOrUpdateArticleInfo" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+	<insert id="saveOrUpdate" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		insert into tb_article_info(
 			id, 
 			title, 
@@ -58,7 +58,7 @@
 			category_id = #{categoryId,jdbcType=INTEGER},
 			public_date = #{publicDate,jdbcType=VARCHAR}
 	</insert>
-	<insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+	<insert id="saveSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		insert into tb_article_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -119,7 +119,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+	<update id="updateSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		update tb_article_info
 		<set>
 			<if test="title != null">
@@ -149,7 +149,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateById" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+	<update id="update" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		update tb_article_info
 		set title = #{title,jdbcType=VARCHAR},
 		file_path = #{filePath,jdbcType=VARCHAR},
@@ -162,7 +162,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	
- 	<select id="getArticleInfoList" resultType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+ 	<select id="getList" resultType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		select * from tb_article_info
 	</select>
 	

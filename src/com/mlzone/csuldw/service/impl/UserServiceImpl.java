@@ -2,7 +2,9 @@ package com.mlzone.csuldw.service.impl;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,14 +41,16 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public PageInfo<UserEntity> getUserListByParam(String keywords, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<UserEntity> users = userMapper.getUserListByParam(keywords);
+		Map<String, Object> params = new HashMap<>();
+		params.put("keywords", keywords);
+		List<UserEntity> users = userMapper.getListByParam(params);
 		PageInfo<UserEntity> userPage= new PageInfo<UserEntity>(users);
 		return userPage;
 	}
 	
 	@Override
 	public List<UserEntity> getUserList() {
-		List<UserEntity> users = userMapper.getUserListByParam(null);
+		List<UserEntity> users = userMapper.getListByParam(null);
 		return users;
 	}
 	
@@ -70,17 +74,17 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public int saveOrUpdateUser(UserEntity userEntity) {
-		return userMapper.saveOrUpdateUser(userEntity);
+		return userMapper.saveOrUpdate(userEntity);
 	}
 
 	@Override
 	public int updateUserById(UserEntity userEntity) {
-		return userMapper.updateUserById(userEntity);
+		return userMapper.update(userEntity);
 	}
 
 	@Override
 	public UserEntity getUserById(Integer id) {
-		return userMapper.getUserById(id);
+		return userMapper.getById(id);
 	}
 
 	@Override

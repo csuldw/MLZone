@@ -3,6 +3,7 @@ package com.mlzone.csuldw.service;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.Page;
 import com.mlzone.csuldw.entity.RecommendationEntity;
 
 /**
@@ -19,6 +20,6 @@ public interface IRecommendationService {
     
     int saveOrUpdateRecommendation(RecommendationEntity recommendationEntity);
     
-    List<Map<String, Object>> getRecommendationListByParam(String keywords);
+    Page<RecommendationEntity> getRecommendationListByParam(String keywords, int pageNum, int pageSize);
 
 }

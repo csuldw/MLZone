@@ -70,7 +70,7 @@ public class CommentController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/comment/deleteCommentById.do")
+	@RequestMapping(value = "/comment/deleteCommentById.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> deleteCommentById(Integer id){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -97,7 +97,7 @@ public class CommentController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/comment/getCommentListByUserId.do")
+	@RequestMapping(value = "/comment/getCommentListByUserId.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> getCommentListByUserId(Integer userId){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -122,7 +122,7 @@ public class CommentController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/comment/getCommentListByArticleId.do")
+	@RequestMapping(value = "/comment/getCommentListByArticleId.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> getCommentListByArticleId(Integer articleId){
 		Map<String, Object> resultMap = new HashMap<>();
@@ -138,7 +138,7 @@ public class CommentController {
 		return resultMap;
 	}
 	
-	@RequestMapping(value = "/comment/countCommentByArticleId.do")
+	@RequestMapping(value = "/comment/countCommentByArticleId.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> countCommentByArticleId(Integer articleId){
 		Map<String, Object> resultMap = new HashMap<>();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 
 /**
@@ -20,7 +21,7 @@ public interface IArticleInfoService {
 	
     int saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity);
 
-    List<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize);
+    Page<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize);
 
     ArticleInfoEntity getArticelInfoById(Integer id);
     

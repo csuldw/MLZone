@@ -28,7 +28,7 @@ public class ArticleCategoryServiceImpl implements IArticleCategoryService {
 
 	@Override
 	public int saveOrUpdateArticleCategory(ArticleCategoryEntity articleCategoryEntity) {
-		return articleCategoryMapper.saveOrUpdateArticleCategory(articleCategoryEntity);
+		return articleCategoryMapper.saveOrUpdate(articleCategoryEntity);
 	}
 
 }

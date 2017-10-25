@@ -11,24 +11,26 @@
 	<sql id="Base_Column_List">
 		id, from_user_id, to_user_id, comment_id, star_date
 	</sql>
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_star
 		where id = #{id,jdbcType=INTEGER}
 	</select>
-	<delete id="deleteStarById" parameterType="java.lang.Integer">
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from tb_star
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="saveStar" parameterType="com.mlzone.csuldw.entity.StarEntity">
+	<insert id="save" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		insert into tb_star (id, from_user_id, to_user_id,
 		comment_id, star_date)
 		values (#{id,jdbcType=INTEGER}, #{fromUserId,jdbcType=INTEGER},
 		#{toUserId,jdbcType=INTEGER},
 		#{commentId,jdbcType=INTEGER}, #{starDate,jdbcType=VARCHAR})
 	</insert>
-	<insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.StarEntity">
+	<insert id="saveSelective" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		insert into tb_star
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -65,7 +67,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.StarEntity">
+	<update id="updateSelective" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		update tb_star
 		<set>
 			<if test="fromUserId != null">
@@ -83,7 +85,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateById" parameterType="com.mlzone.csuldw.entity.StarEntity">
+	<update id="update" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		update tb_star
 		set from_user_id = #{fromUserId,jdbcType=INTEGER},
 		to_user_id = #{toUserId,jdbcType=INTEGER},

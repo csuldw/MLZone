@@ -20,12 +20,12 @@ public class StarServiceImpl implements IStarService {
 	IStarMapper starMapper;
 	@Override
 	public int deleteStarById(Integer id) {
-		return starMapper.deleteStarById(id);
+		return starMapper.deleteById(id);
 	}
 
 	@Override
 	public int saveStar(StarEntity starEntity) {
-		return starMapper.saveStar(starEntity);
+		return starMapper.save(starEntity);
 	}
 
 	@Override

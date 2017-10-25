@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 import com.mlzone.csuldw.service.IArticleInfoService;
 
@@ -93,12 +94,12 @@ public class ArticleInfoController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/articleInfo/getArticelInfoList.do")
+	@RequestMapping(value = "/articleInfo/getArticelInfoList.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> getArticelInfoList(int pageNum, int pageSize) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			List<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoList(pageNum, pageSize);
+			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoList(pageNum, pageSize).toPageInfo();
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {

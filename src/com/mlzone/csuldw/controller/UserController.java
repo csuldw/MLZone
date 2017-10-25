@@ -113,12 +113,12 @@ public class UserController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/user/getUserById.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/getUserById.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> getUserById(Integer userId){
+	public Map<String, Object> getUserById(Integer id){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			UserEntity userEntity = userService.getUserById(userId);
+			UserEntity userEntity = userService.getUserById(id);
 			resultMap.put("data", userEntity);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -137,7 +137,7 @@ public class UserController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/user/checkUserExistByUsername.do")
+	@RequestMapping(value = "/user/checkUserExistByUsername.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> checkUserExistByUsername(String username){
 		Map<String, Object> resultMap = new HashMap<>();

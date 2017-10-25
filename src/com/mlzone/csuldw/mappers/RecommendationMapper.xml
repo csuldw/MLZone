@@ -17,18 +17,18 @@
 		recommend_date
 	</sql>
 	
-	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from tb_recommendation
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 	
-	<delete id="deleteRecommendationById" parameterType="java.lang.Integer">
+	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from tb_recommendation where id = #{id,jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="saveOrUpdateRecommendation" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
+	<insert id="saveOrUpdate" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		insert into tb_recommendation (
 			id, 
 			title, 
@@ -58,7 +58,7 @@
 			category_id = #{categoryId,jdbcType=INTEGER},
 			recommend_date = #{recommendDate,jdbcType=VARCHAR}
 	</insert>
-	<insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
+	<insert id="saveSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		insert into tb_recommendation
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -113,7 +113,7 @@
 			</if>
 		</trim>
 	</insert>
-	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
+	<update id="updateSelective" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		update tb_recommendation
 		<set>
 			<if test="title != null">
@@ -140,7 +140,7 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
-	<update id="updateById" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
+	<update id="update" parameterType="com.mlzone.csuldw.entity.RecommendationEntity">
 		update tb_recommendation
 		set title = #{title,jdbcType=VARCHAR},
 		link = #{link,jdbcType=VARCHAR},
@@ -152,7 +152,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	
-	<select id="getRecommendationListByParam" resultMap="BaseResultMap">
+	<select id="getListByParam" resultMap="BaseResultMap">
 		SELECT
 			t1.id AS id,
 			t1.title AS title,

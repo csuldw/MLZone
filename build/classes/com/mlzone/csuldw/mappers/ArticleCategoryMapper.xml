@@ -24,7 +24,7 @@
 		where id = #{id, jdbcType=INTEGER}
 	</delete>
 	
-	<insert id="saveOrUpdateArticleCategory" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
+	<insert id="saveOrUpdate" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
 		insert into tb_article_category 
 		(id, category_name, parent_id, description)
 		values 
@@ -40,7 +40,7 @@
 			description = #{description,jdbcType=VARCHAR}
 	</insert>
 	
-	<insert id="insertSelective" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
+	<insert id="saveSelective" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
 		insert into tb_article_category
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -72,7 +72,7 @@
 		</trim>
 	</insert>
 	
-	<update id="updateByIdSelective" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
+	<update id="updateSelective" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
 		update tb_article_category
 		<set>
 			<if test="categoryName != null">
@@ -88,7 +88,7 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 	
-	<update id="updateById" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
+	<update id="update" parameterType="com.mlzone.csuldw.entity.ArticleCategoryEntity">
 		update tb_article_category
 		set category_name = #{categoryName,jdbcType=VARCHAR},
 		parent_id = #{parentId,jdbcType=INTEGER},

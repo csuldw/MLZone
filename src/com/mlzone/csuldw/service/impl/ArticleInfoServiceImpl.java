@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.mlzone.csuldw.dao.IArticleInfoMapper;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
@@ -26,23 +27,24 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	
 	@Override
 	public int deleteArticleInfoById(Integer id) {
-		return articleInfoMapper.deleteArticleInfoById(id);
+		return articleInfoMapper.deleteById(id);
 	}
 
 	@Override
 	public int saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity) {
-		return articleInfoMapper.saveOrUpdateArticleInfo(articleInfoEntity);
+		return articleInfoMapper.saveOrUpdate(articleInfoEntity);
 	}
 
 	@Override
-	public List<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize) {
+	public Page<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		return articleInfoMapper.getArticleInfoList();
+		Page<ArticleInfoEntity> articlePage= (Page<ArticleInfoEntity>) articleInfoMapper.getList();
+		return articlePage;
 	}
 
 	@Override
 	public ArticleInfoEntity getArticelInfoById(Integer id) {
-		return articleInfoMapper.getArticelInfoById(id);
+		return articleInfoMapper.getById(id);
 	}
 
 	@Override

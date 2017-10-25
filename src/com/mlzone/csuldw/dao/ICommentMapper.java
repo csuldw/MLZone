@@ -4,29 +4,8 @@ import java.util.List;
 
 import com.mlzone.csuldw.entity.CommentEntity;
 
-public interface ICommentMapper {
-	/**
-	 * 根据评论ID删除评论
-	 *
-	 * Author:liudiwei
-	 * Date:2017年10月14日
-	 * @param id
-	 * @return
-	 * @since
-	 */
-    int deleteCommentById(Integer id);
+public interface ICommentMapper extends BaseMapper<CommentEntity>{
 
-    /**
-     * 保存或更新评论
-     *
-     * Author:liudiwei
-     * Date:2017年10月14日
-     * @param commentEntity
-     * @return
-     * @since
-     */
-    int saveOrUpdateComment(CommentEntity commentEntity);
-    
     /**
      * 根据用户ID获取评论
      *
@@ -60,11 +39,4 @@ public interface ICommentMapper {
      */
     int countCommentByArticleId(Integer articleId);
     
-    int insertSelective(CommentEntity commentEntity);
-
-    CommentEntity selectById(Integer id);
-
-    int updateByIdSelective(CommentEntity commentEntity);
-
-    int updateById(CommentEntity commentEntity);
 }
