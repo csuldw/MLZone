@@ -1,3 +1,17 @@
+config/index.js
+
+```
+proxyTable: {
+        '/api':{
+            target:'http://localhost:3030/',
+            changeOrigin: true,
+            pathRewrite:{
+                '^/api':'/'
+            }
+        }
+    },
+```
+
 ### 20171026
 
 1. 重构DAO类，简化代码
