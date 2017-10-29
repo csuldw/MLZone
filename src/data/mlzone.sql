@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: mlzone
 Target Host: localhost
 Target Database: mlzone
-Date: 2017-10-24 23:54:22
+Date: 2017-10-29 14:33:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -18,7 +18,7 @@ CREATE TABLE `tb_article_category` (
   `parent_id` int(11) unsigned zerofill DEFAULT '00000000000',
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_article_info
@@ -33,6 +33,7 @@ CREATE TABLE `tb_article_info` (
   `tags` varchar(255) DEFAULT NULL,
   `post_type` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
+  `is_publish` int(11) DEFAULT NULL,
   `public_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
