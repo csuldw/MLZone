@@ -1,3 +1,9 @@
+### 20171029
+
+待完成：
+
+1. 后台添加`is_publish`字段
+
 config/index.js
 
 ```
