@@ -19,6 +19,13 @@
 		where id = #{categoryId,jdbcType=INTEGER}
 	</select>
 	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from tb_article_category
+		where id = #{categoryId,jdbcType=INTEGER}
+	</select>
+	
 	<delete id="deleteById" parameterType="java.lang.Integer">
 		delete from tb_article_category
 		where id = #{id, jdbcType=INTEGER}

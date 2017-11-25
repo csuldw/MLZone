@@ -1,15 +1,21 @@
 package com.mlzone.csuldw.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.FileUploadUtil;
@@ -41,11 +47,12 @@ public class ArticleInfoController {
 	 * @return
 	 * @since
 	 */
-	@RequestMapping(value = "/articleInfo/saveOrUpdateArticleInfo.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/articleInfo/saveOrUpdateArticleInfo.do", produces="application/json")
 	@ResponseBody
-	public Map<String, Object> saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity){
+	public Map<String, Object> saveOrUpdateArticleInfo(@RequestBody ArticleInfoEntity articleInfoEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			log.info(articleInfoEntity.toString());
 			int saveResult = articleInfoService.saveOrUpdateArticleInfo(articleInfoEntity);
 			if(saveResult > 0){
 				resultMap.put("result", "success");
@@ -97,10 +104,12 @@ public class ArticleInfoController {
 	 */
 	@RequestMapping(value = "/articleInfo/getArticelInfoList.do", method = {RequestMethod.POST})
 	@ResponseBody
-	public Map<String, Object> getArticelInfoList(int pageNum, int pageSize) {
+	public Map<String, Object> getArticelInfoList(int pageNum, int pageSize,
+			@RequestParam(required=false) String keywords) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoList(pageNum, pageSize).toPageInfo();
+			log.info("keywords" + keywords);
+			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByPage(keywords, pageNum, pageSize).toPageInfo();
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -152,9 +161,11 @@ public class ArticleInfoController {
 	 */
 	@RequestMapping(value = "/articleInfo/getArticleInfoListByParams.do")
 	@ResponseBody
-	public Map<String, Object> getArticleInfoListByParams(String keywords, String tag, String category, int pageSize, int pageNum){
+	public Map<String, Object> getArticleInfoListByParams( int pageSize, int pageNum, 
+				String keywords, String tag, String category){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			log.info(keywords);
 			List<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByParams(keywords, tag, category, pageNum, pageSize);
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");

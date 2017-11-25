@@ -1,6 +1,8 @@
 package com.mlzone.csuldw.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,6 +58,15 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	@Override
 	public int countArticleInfoByParams(String keywords, String tag,String category) {
 		return articleInfoMapper.countArticleInfoByParams(keywords, tag, category);
+	}
+
+	@Override
+	public Page<ArticleInfoEntity> getArticleInfoListByPage(String keywords, int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		Map<String, Object> params = new HashMap<>();
+		params.put("keywords", keywords);
+		Page<ArticleInfoEntity> articlePage= (Page<ArticleInfoEntity>) articleInfoMapper.getListByParam(params);
+		return articlePage;
 	}
 
 }

@@ -2,8 +2,6 @@ package com.mlzone.csuldw.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.Page;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 
@@ -20,6 +18,8 @@ public interface IArticleInfoService {
 	int deleteArticleInfoById(Integer id);
 	
     int saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity);
+    
+    Page<ArticleInfoEntity>getArticleInfoListByPage(String keywords, int pageNum, int pageSize);
 
     Page<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize);
 

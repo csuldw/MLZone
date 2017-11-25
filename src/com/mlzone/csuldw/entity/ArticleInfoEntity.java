@@ -16,6 +16,8 @@ public class ArticleInfoEntity {
     private String filePath;
 
     private Integer userId;
+    
+    private String author;
 
     private String keywords;
 
@@ -24,9 +26,15 @@ public class ArticleInfoEntity {
     private Integer postType;
 
     private Integer categoryId;
-
+    
     private String publicDate;
-
+    
+    private Integer isPublish;
+    
+    private UserEntity userEntity;
+    
+    private ArticleCategoryEntity articleCategoryEntity;
+    
     public Integer getId() {
         return id;
     }
@@ -59,7 +67,15 @@ public class ArticleInfoEntity {
         this.userId = userId;
     }
 
-    public String getKeywords() {
+    public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getKeywords() {
         return keywords;
     }
 
@@ -98,4 +114,39 @@ public class ArticleInfoEntity {
     public void setPublicDate(String publicDate) {
         this.publicDate = publicDate == null ? null : publicDate.trim();
     }
+
+	public Integer getIsPublish() {
+		return isPublish;
+	}
+
+	public void setIsPublish(Integer isPublish) {
+		this.isPublish = isPublish;
+	}
+
+	public UserEntity getUserEntity() {
+		return userEntity;
+	}
+
+	public void setUserEntity(UserEntity userEntity) {
+		this.userEntity = userEntity;
+	}
+
+	public ArticleCategoryEntity getArticleCategoryEntity() {
+		return articleCategoryEntity;
+	}
+
+	public void setArticleCategoryEntity(ArticleCategoryEntity articleCategoryEntity) {
+		this.articleCategoryEntity = articleCategoryEntity;
+	}
+
+	@Override
+	public String toString() {
+		return "ArticleInfoEntity [id=" + id + ", title=" + title
+				+ ", filePath=" + filePath + ", userId=" + userId + ", author="
+				+ author + ", keywords=" + keywords + ", tags=" + tags
+				+ ", postType=" + postType + ", categoryId=" + categoryId
+				+ ", publicDate=" + publicDate + ", isPublish=" + isPublish
+				+ ", userEntity=" + userEntity + ", articleCategoryEntity="
+				+ articleCategoryEntity + "]";
+	}
 }

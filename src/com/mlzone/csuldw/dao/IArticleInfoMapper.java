@@ -2,10 +2,12 @@ package com.mlzone.csuldw.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 
 public interface IArticleInfoMapper extends BaseMapper<ArticleInfoEntity>{
-
+	
     /**
      * 根据条件查找文章，待完善
      *
