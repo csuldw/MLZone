@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.mlzone.csuldw.common.FileUploadUtil;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 import com.mlzone.csuldw.service.IArticleInfoService;
 
@@ -191,4 +192,29 @@ public class ArticleInfoController {
 		}
 		return resultMap;
 	}
+	
+    @RequestMapping(value = "/file/uploadFile.do", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object>upLoadProjectFile(HttpServletRequest request, @RequestParam("file") CommonsMultipartFile file)
+    {
+        Map<String, Object> resultMap = new HashMap<>();
+        try
+        {
+            String fileUploadPath = "/data01/";
+            String fullPath = fileUploadPath ; // 文件夹路径
+            
+            String fileName = file.getOriginalFilename(); // 文件名称
+            FileUploadUtil.upload(file.getInputStream(), fullPath, fileName);
+            resultMap.put("result", "success");
+            resultMap.put("fileName", fileName);
+            log.info("上传文件成功");
+        }
+        catch (IOException e)
+        {
+            log.error("上传文件异常", e);
+            resultMap.put("result", "error");
+            resultMap.put("reason", "上传文件异常");
+        }
+        return resultMap;
+    }
 }
