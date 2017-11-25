@@ -71,4 +71,36 @@
         <filter-name>encodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+	
+	<!-- 处理页面跨域请求 -->
+	<filter>
+		<filter-name>corsFilter</filter-name>
+		<filter-class>com.mlzone.csuldw.common.CorsFilter</filter-class>
+		<init-param>
+			<!-- 允许访问的客户端域名，*为任意，支持跨多个不同域名，配置用逗号隔开-->
+			<param-name>allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowMethods</param-name>
+			<param-value>POST, GET, OPTIONS, PUT, DELETE, HEAD</param-value>
+		</init-param>
+		<init-param>
+			<!-- 是否允许请求带有验证信息，如要获取客户端域下的cookie，则需要设置为true -->
+			<param-name>allowCredentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowHeaders</param-name>
+			<param-value>X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept,token</param-value>
+		</init-param>
+		<init-param>
+			<param-name>maxAge</param-name>
+			<param-value>1728000</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>corsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>
