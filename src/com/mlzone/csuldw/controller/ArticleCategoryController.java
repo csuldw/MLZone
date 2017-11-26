@@ -1,6 +1,7 @@
 package com.mlzone.csuldw.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -76,6 +77,22 @@ public class ArticleCategoryController {
 				resultMap.put("info", "数据保存失败！"); 
 			}
 			
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			resultMap.put("info", "数据库操作异常！");
+			log.info(e.toString());
+		}
+		return resultMap;
+	}
+	
+	@RequestMapping(value = "/articleCategory/getArticleCategoryListByParam.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getArticleCategoryListByParam(String keywords){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			List<ArticleCategoryEntity>  entityList = articleCategoryService.getArticleCategoryListByParam(keywords);
+			resultMap.put("data", entityList);
+			resultMap.put("result", "success");
 		} catch (Exception e) {
 			resultMap.put("result", "error");
 			resultMap.put("info", "数据库操作异常！");

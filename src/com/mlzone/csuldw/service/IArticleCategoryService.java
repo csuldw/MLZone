@@ -1,6 +1,10 @@
 package com.mlzone.csuldw.service;
 
+import java.util.List;
+
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.entity.ArticleCategoryEntity;
+import com.mlzone.csuldw.entity.UserEntity;
 
 /**
  * 
@@ -15,5 +19,8 @@ public interface IArticleCategoryService {
     public ArticleCategoryEntity getArticleCategoryById(Integer id);
     
     public int saveOrUpdateArticleCategory(ArticleCategoryEntity articleCategoryEntity);
+    
+    public List<ArticleCategoryEntity> getArticleCategoryListByParam(String keywords);
+
 
 }

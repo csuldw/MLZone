@@ -1,5 +1,9 @@
 package com.mlzone.csuldw.service.impl;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +33,13 @@ public class ArticleCategoryServiceImpl implements IArticleCategoryService {
 	@Override
 	public int saveOrUpdateArticleCategory(ArticleCategoryEntity articleCategoryEntity) {
 		return articleCategoryMapper.saveOrUpdate(articleCategoryEntity);
+	}
+
+	@Override
+	public List<ArticleCategoryEntity> getArticleCategoryListByParam(String keywords) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("keywords", keywords);
+		return articleCategoryMapper.getListByParam(params);
 	}
 
 }

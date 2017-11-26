@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: mlzone
 Target Host: localhost
 Target Database: mlzone
-Date: 2017-10-29 14:33:17
+Date: 2017-11-26 0:56:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,6 +28,7 @@ CREATE TABLE `tb_article_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(64) DEFAULT NULL,
   `file_path` varchar(64) DEFAULT NULL,
+  `author` varchar(32) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `keywords` varchar(255) DEFAULT NULL,
   `tags` varchar(255) DEFAULT NULL,
@@ -36,7 +37,7 @@ CREATE TABLE `tb_article_info` (
   `is_publish` int(11) DEFAULT NULL,
   `public_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_comment
@@ -112,8 +113,14 @@ CREATE TABLE `tb_user` (
 INSERT INTO `tb_article_category` VALUES ('1', '机器学习', '00000000000', 'ML 机器学习相关文章');
 INSERT INTO `tb_article_category` VALUES ('2', '数据库', '00000000000', 'database');
 INSERT INTO `tb_article_category` VALUES ('3', '大数据', '00000000000', '大数据');
+INSERT INTO `tb_article_info` VALUES ('1', 'fdsafds', '12321', null, '1', '决策树', '决策树12', '0', '1', '1', '2017-11-22 10:24:22');
+INSERT INTO `tb_article_info` VALUES ('4', 'adaboost', null, null, '1', null, null, '0', '1', '0', '');
+INSERT INTO `tb_article_info` VALUES ('5', 'qwe', null, null, '123424', null, null, '0', '1', '0', '');
+INSERT INTO `tb_article_info` VALUES ('6', 'stbc', null, null, '1', null, null, '0', '1', '0', '');
+INSERT INTO `tb_article_info` VALUES ('7', 'test', null, null, '1', null, null, '0', '1', '0', '');
+INSERT INTO `tb_article_info` VALUES ('43', 'zhangli', null, '', null, '12321312312', null, '0', '0', '0', '');
 INSERT INTO `tb_recommendation` VALUES ('1', 'Python机器学习', null, 'www', 'csuldw', null, '1', null);
-INSERT INTO `tb_user` VALUES ('1', 'zhangsan1', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('1', 'admin', 'zola', 'admin', '1', null, null, null, null, null, '1', null, null, null, null);
 INSERT INTO `tb_user` VALUES ('6', 'zhangsa12', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
 INSERT INTO `tb_user` VALUES ('13', 'zhangsan', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
 INSERT INTO `tb_user` VALUES ('15', 'zhangsan4', null, 'admin', null, null, null, null, '湖北省', null, null, null, null, null, null);

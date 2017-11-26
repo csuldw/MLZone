@@ -102,4 +102,21 @@
 		description = #{description,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<select id="getListByParam" parameterType="Map" resultType="com.mlzone.csuldw.entity.ArticleCategoryEntity">		
+		SELECT 
+			id id, 
+			category_name categoryName, 
+			parent_id parentId, 
+			description description
+		FROM tb_article_category
+		WHERE 1 = 1
+		<if test="keywords != null and keywords != ''">
+			AND CONCAT_WS(
+			    '/-/',
+			    category_name, 
+			    description
+			) LIKE CONCAT('%',#{keywords},'%')
+		</if>
+	</select>
 </mapper>
