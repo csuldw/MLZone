@@ -217,7 +217,7 @@ public class ArticleInfoController {
             String fileName = file.getOriginalFilename(); // 文件名称
             FileUploadUtil.upload(file.getInputStream(), fullPath, fileName);
             resultMap.put("result", "success");
-            resultMap.put("fileName", fileName);
+            resultMap.put("filePath", fullPath + fileName);
             log.info("上传文件成功");
         }
         catch (IOException e)
