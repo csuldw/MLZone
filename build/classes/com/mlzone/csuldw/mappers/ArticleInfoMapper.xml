@@ -45,7 +45,8 @@
 			public_date
 		)
 		values(
-			#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},
+			#{id,jdbcType=INTEGER}, 
+			#{title,jdbcType=VARCHAR},
 			#{filePath,jdbcType=VARCHAR},
 			#{author,jdbcType=VARCHAR},
 			#{userId,jdbcType=INTEGER}, 

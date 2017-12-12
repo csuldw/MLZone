@@ -17,7 +17,7 @@ public class UserEntity {
 
     private String password;
 
-    private String sex;
+    private Integer sex;
 
     private String idCard;
 
@@ -71,15 +71,15 @@ public class UserEntity {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getSex() {
-        return sex;
-    }
+    public Integer getSex() {
+		return sex;
+	}
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
-    }
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
 
-    public String getIdCard() {
+	public String getIdCard() {
         return idCard;
     }
 
@@ -158,4 +158,16 @@ public class UserEntity {
     public void setRegDate(String regDate) {
         this.regDate = regDate == null ? null : regDate.trim();
     }
+
+	@Override
+	public String toString() {
+		return "UserEntity [id=" + id + ", username=" + username
+				+ ", nickname=" + nickname + ", password=" + password
+				+ ", sex=" + sex + ", idCard=" + idCard + ", birthday="
+				+ birthday + ", phoneNumber=" + phoneNumber + ", address="
+				+ address + ", email=" + email + ", status=" + status
+				+ ", image=" + image + ", userType=" + userType
+				+ ", accountSource=" + accountSource + ", regDate=" + regDate
+				+ "]";
+	}
 }

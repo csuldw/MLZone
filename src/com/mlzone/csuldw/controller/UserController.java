@@ -7,6 +7,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,9 +44,10 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/saveOrUpdateUser.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> saveOrUpdateUser(UserEntity userEntity){
+	public Map<String, Object> saveOrUpdateUser(@RequestBody UserEntity userEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			System.out.println(userEntity.toString());
 			int saveResult = userService.saveOrUpdateUser(userEntity);
 			if(saveResult > 0){
 				resultMap.put("result", "success");
@@ -73,7 +75,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/updateUser.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> updateUser(UserEntity userEntity){
+	public Map<String, Object> updateUser(@RequestBody UserEntity userEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int insertResult = userService.updateUserById(userEntity);

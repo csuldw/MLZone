@@ -4,7 +4,7 @@ Source Host: localhost
 Source Database: mlzone
 Target Host: localhost
 Target Database: mlzone
-Date: 2017-11-26 0:56:28
+Date: 2017-12-13 0:19:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,7 +37,7 @@ CREATE TABLE `tb_article_info` (
   `is_publish` int(11) DEFAULT NULL,
   `public_date` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for tb_comment
@@ -113,18 +113,17 @@ CREATE TABLE `tb_user` (
 INSERT INTO `tb_article_category` VALUES ('1', '机器学习', '00000000000', 'ML 机器学习相关文章');
 INSERT INTO `tb_article_category` VALUES ('2', '数据库', '00000000000', 'database');
 INSERT INTO `tb_article_category` VALUES ('3', '大数据', '00000000000', '大数据');
-INSERT INTO `tb_article_info` VALUES ('1', 'fdsafds', '12321', null, '1', '决策树', '决策树12', '0', '1', '1', '2017-11-22 10:24:22');
-INSERT INTO `tb_article_info` VALUES ('4', 'adaboost', null, null, '1', null, null, '0', '1', '0', '');
-INSERT INTO `tb_article_info` VALUES ('5', 'qwe', null, null, '123424', null, null, '0', '1', '0', '');
-INSERT INTO `tb_article_info` VALUES ('6', 'stbc', null, null, '1', null, null, '0', '1', '0', '');
-INSERT INTO `tb_article_info` VALUES ('7', 'test', null, null, '1', null, null, '0', '1', '0', '');
-INSERT INTO `tb_article_info` VALUES ('43', 'zhangli', null, '', null, '12321312312', null, '0', '0', '0', '');
+INSERT INTO `tb_article_info` VALUES ('1', 'SVM算法详解', '12321', null, '1', '决策树', '决策树12', '0', '1', '1', '2017-11-22 10:24:22');
+INSERT INTO `tb_article_info` VALUES ('4', 'adaboost', '/data01/index.html', null, '1', null, null, '0', '1', '0', '');
+INSERT INTO `tb_article_info` VALUES ('5', '数据库', '/data01/index.html', null, '123424', '烦烦烦', null, '0', '2', '0', '');
+INSERT INTO `tb_article_info` VALUES ('6', 'stbc', '/data01/index.html', null, '1', null, null, '0', '1', '0', '');
+INSERT INTO `tb_article_info` VALUES ('7', 'test', null, null, '1', null, null, '0', '2', '1', '');
 INSERT INTO `tb_recommendation` VALUES ('1', 'Python机器学习', null, 'www', 'csuldw', null, '1', null);
-INSERT INTO `tb_user` VALUES ('1', 'admin', 'zola', 'admin', '1', null, null, null, null, null, '1', null, null, null, null);
-INSERT INTO `tb_user` VALUES ('6', 'zhangsa12', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('13', 'zhangsan', null, 'admin', null, null, null, null, '湖南省', null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('15', 'zhangsan4', null, 'admin', null, null, null, null, '湖北省', null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('19', 'zhangsan41', null, 'admin', null, null, null, null, '北京', null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('20', 'zhangsan41222', null, 'admin', null, null, null, null, '深圳', null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('23', 'zhangsan412221', null, 'admin', null, null, null, null, '广州', null, null, null, null, null, null);
-INSERT INTO `tb_user` VALUES ('25', 'zhangsa', null, 'admin', null, null, null, null, '上海', null, null, null, null, null, null);
+INSERT INTO `tb_user` VALUES ('1', 'admin', 'zola', 'admin', '0', null, '1992-03-04', '13111111111', '江西赣州', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('6', 'zhangsa12', 'zola', 'admin', '0', null, '1992-03-04', '13111111111', '湖南省', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('13', 'zhangsan', 'zola', 'admin', '1', null, '1992-03-04', '13111111111', '湖南省', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('15', 'zhangsan4', 'zola', 'admin', '1', null, '1992-03-04', '13111111111', '湖北省', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('19', 'zhangsan41', 'zola', 'admin', '0', null, '1992-03-04', '13111111111', '北京', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('20', 'zhangsan41222', 'zola', 'admin', '1', null, '1992-03-04', '13111111111', '深圳', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('23', 'zhangsan412221', 'zola', 'admin', '1', null, '1992-03-04', '13111111111', '广州', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
+INSERT INTO `tb_user` VALUES ('25', 'zhangsa', 'zola', 'admin', '1', null, '1992-03-04', '13111111111', '上海', '123@csu.edu.cn', '1', null, '1', '1', '2017-12-12 23:21:42');
