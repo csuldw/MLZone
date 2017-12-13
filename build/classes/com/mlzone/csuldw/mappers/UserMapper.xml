@@ -297,6 +297,7 @@
 			AND CONCAT_WS(
 			    '/-/',
 			    username, 
+			    nickname,
 			    address, 
 			    email
 			) LIKE CONCAT('%',#{keywords},'%')

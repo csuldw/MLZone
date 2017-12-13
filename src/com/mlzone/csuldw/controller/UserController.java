@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.mlzone.csuldw.common.DateUtils;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
 import com.mysql.jdbc.log.Log;
@@ -48,6 +49,9 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			System.out.println(userEntity.toString());
+			if(userEntity.getId() == 0){
+				userEntity.setRegDate(DateUtils.getFormatedDate(DateUtils.DATE_FORMAT_PATTEN_TYPE1));
+			}
 			int saveResult = userService.saveOrUpdateUser(userEntity);
 			if(saveResult > 0){
 				resultMap.put("result", "success");
