@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.entity.CommentEntity;
+import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.ICommentService;
 
 /**
@@ -153,4 +155,20 @@ public class CommentController {
 		}
 		return resultMap;
 	}
+	
+	@RequestMapping(value = "/comment/getCommentListByParam.do", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> getUserListByParam(String keywords, int pageNum, int pageSize) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			log.info("keywords:" + keywords);
+			PageInfo<CommentEntity> comments = commentService.getCommentListByParam(keywords, pageNum, pageSize);
+			resultMap.put("data", comments);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			e.printStackTrace();
+		}
+		return resultMap;
+	}	
 }

@@ -1,12 +1,16 @@
 package com.mlzone.csuldw.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.dao.ICommentMapper;
 import com.mlzone.csuldw.entity.CommentEntity;
+import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.ICommentService;
 
 /**
@@ -46,5 +50,15 @@ public class CommentServiceImpl implements ICommentService {
 	@Override
 	public int countCommentByArticleId(Integer articleId) {
 		return commentMapper.countCommentByArticleId(articleId);
+	}
+
+	@Override
+	public PageInfo<CommentEntity> getCommentListByParam(String keywords,
+			int pageNum, int pageSize) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("keywords", keywords);
+		List<CommentEntity> users = commentMapper.getListByParam(params);
+		PageInfo<CommentEntity> commentPage= new PageInfo<CommentEntity>(users);
+		return commentPage;
 	}
 }

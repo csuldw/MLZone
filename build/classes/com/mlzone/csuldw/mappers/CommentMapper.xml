@@ -7,9 +7,10 @@
 		<result column="from_user_id" property="fromUserId" jdbcType="INTEGER" />
 		<result column="to_user_id" property="toUserId" jdbcType="INTEGER" />
 		<result column="article_id" property="articleId" jdbcType="INTEGER" />
-		<result column="parent_comment_id" property="parentCommentId"
-			jdbcType="INTEGER" />
+		<result column="parent_comment_id" property="parentCommentId" jdbcType="INTEGER" />
 		<result column="send_date" property="sendDate" jdbcType="VARCHAR" />
+		<association property="userEntityFrom" column="from_user_id" select="com.mlzone.csuldw.dao.IUserMapper.getById" />
+		<association property="userEntityTo" column="to_user_id" select="com.mlzone.csuldw.dao.IUserMapper.getById" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, content, from_user_id, to_user_id, article_id, parent_comment_id,
@@ -135,6 +136,18 @@
 		send_date = #{sendDate,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	
+	<select id="getListByParam" parameterType="Map" resultMap="BaseResultMap">		
+		SELECT *
+		FROM tb_comment
+		WHERE 1 = 1
+		<if test="keywords != null and keywords != ''">
+			AND CONCAT_WS(
+			    '/-/',
+			    content 
+			) LIKE CONCAT('%',#{keywords},'%')
+		</if>
+	</select>
 
 
 	<select id="getCommentListByUserId" resultType="com.mlzone.csuldw.entity.ArticleInfoEntity">

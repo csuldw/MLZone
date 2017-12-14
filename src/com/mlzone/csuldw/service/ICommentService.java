@@ -2,6 +2,7 @@ package com.mlzone.csuldw.service;
 
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.entity.CommentEntity;
 
 /**
@@ -23,5 +24,8 @@ public interface ICommentService {
     List<CommentEntity> getCommentListByArticleId(Integer articleId);
 
     int countCommentByArticleId(Integer articleId);
+    
+    public PageInfo<CommentEntity> getCommentListByParam(String keywords, int pageNum, int pageSize);
+
 
 }

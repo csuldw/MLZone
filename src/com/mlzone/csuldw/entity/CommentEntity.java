@@ -22,6 +22,10 @@ public class CommentEntity {
     private Integer parentCommentId;
 
     private String sendDate;
+    
+    private UserEntity userEntityFrom;
+    
+    private UserEntity userEntityTo;
 
     public Integer getId() {
         return id;
@@ -78,4 +82,20 @@ public class CommentEntity {
     public void setSendDate(String sendDate) {
         this.sendDate = sendDate == null ? null : sendDate.trim();
     }
+
+	public UserEntity getUserEntityFrom() {
+		return userEntityFrom;
+	}
+
+	public void setUserEntityFrom(UserEntity userEntityFrom) {
+		this.userEntityFrom = userEntityFrom;
+	}
+
+	public UserEntity getUserEntityTo() {
+		return userEntityTo;
+	}
+
+	public void setUserEntityTo(UserEntity userEntityTo) {
+		this.userEntityTo = userEntityTo;
+	}
 }
