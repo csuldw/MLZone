@@ -1,5 +1,7 @@
 package com.mlzone.csuldw.entity;
 
+import java.util.List;
+
 /**
  * 
  * Date: 2017年10月14日 下午11:01:03 
@@ -26,6 +28,8 @@ public class CommentEntity {
     private UserEntity userEntityFrom;
     
     private UserEntity userEntityTo;
+    
+    private List<CommentEntity> subCommentEntity;
 
     public Integer getId() {
         return id;
@@ -97,5 +101,13 @@ public class CommentEntity {
 
 	public void setUserEntityTo(UserEntity userEntityTo) {
 		this.userEntityTo = userEntityTo;
+	}
+
+	public List<CommentEntity> getSubCommentEntity() {
+		return subCommentEntity;
+	}
+
+	public void setSubCommentEntity(List<CommentEntity> subCommentEntity) {
+		this.subCommentEntity = subCommentEntity;
 	}
 }

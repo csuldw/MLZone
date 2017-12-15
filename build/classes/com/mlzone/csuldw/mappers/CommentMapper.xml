@@ -11,11 +11,13 @@
 		<result column="send_date" property="sendDate" jdbcType="VARCHAR" />
 		<association property="userEntityFrom" column="from_user_id" select="com.mlzone.csuldw.dao.IUserMapper.getById" />
 		<association property="userEntityTo" column="to_user_id" select="com.mlzone.csuldw.dao.IUserMapper.getById" />
+		<association property="subCommentEntity" column="id" select="com.mlzone.csuldw.dao.ICommentMapper.getSubCommentListById" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, content, from_user_id, to_user_id, article_id, parent_comment_id,
 		send_date
 	</sql>
+	
 	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
@@ -141,21 +143,63 @@
 		SELECT *
 		FROM tb_comment
 		WHERE 1 = 1
+		<if test="articleId != null">
+			AND article_id = #{articleId}
+		</if>
+		<if test="fromUserId != null">
+			AND from_user_id = #{fromUserId}
+		</if>
+		<if test="toUserId != null">
+			AND to_user_id = #{toUserId}
+		</if>
+		<if test="parentCommentId != null">
+			AND parent_comment_id = #{parentCommentId}
+		</if>
 		<if test="keywords != null and keywords != ''">
 			AND CONCAT_WS(
 			    '/-/',
 			    content 
 			) LIKE CONCAT('%',#{keywords},'%')
 		</if>
+		order by id desc
+		
 	</select>
 
 
-	<select id="getCommentListByUserId" resultType="com.mlzone.csuldw.entity.ArticleInfoEntity">
-		select * from tb_comment where user_id = #{userId}
+	<select id="getCommentListByUserId" resultType="com.mlzone.csuldw.entity.CommentEntity">
+		select 
+			id id,
+			content content,
+			from_user_id fromUserId,
+			to_user_id toUserId,
+			article_id articleId,
+			parent_comment_id parentCommentId,
+			send_date sendDate
+		from tb_comment where user_id = #{userId}
+	</select>
+	
+	<select id="getSubCommentListById" resultType="com.mlzone.csuldw.entity.CommentEntity">
+		select 
+			id id,
+			content content,
+			from_user_id fromUserId,
+			to_user_id toUserId,
+			article_id articleId,
+			parent_comment_id parentCommentId,
+			send_date sendDate
+		from tb_comment where parent_comment_id = #{id}
 	</select>
 
-	<select id="getCommentListByArticleId" resultType="com.mlzone.csuldw.entity.ArticleInfoEntity">
-		select * from tb_comment where article_id = #{articleId}
+	<select id="getCommentListByArticleId" resultType="com.mlzone.csuldw.entity.CommentEntity">
+		select 
+			id id,
+			content content,
+			from_user_id fromUserId,
+			to_user_id toUserId,
+			article_id articleId,
+			parent_comment_id parentCommentId,
+			send_date sendDate
+		from tb_comment where article_id = #{articleId}
 	</select>
 
 	<select id="countCommentByArticleId" parameterType="java.lang.Integer" resultType="java.lang.Integer">

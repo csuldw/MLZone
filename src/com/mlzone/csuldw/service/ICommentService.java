@@ -25,7 +25,7 @@ public interface ICommentService {
 
     int countCommentByArticleId(Integer articleId);
     
-    public PageInfo<CommentEntity> getCommentListByParam(String keywords, int pageNum, int pageSize);
+    public PageInfo<CommentEntity> getCommentListByParam(String keywords, int pageNum, int pageSize, Integer fromUserId, Integer toUserId, Integer articleId);
 
 
 }

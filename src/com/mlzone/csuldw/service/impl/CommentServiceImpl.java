@@ -54,9 +54,12 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public PageInfo<CommentEntity> getCommentListByParam(String keywords,
-			int pageNum, int pageSize) {
+			int pageNum, int pageSize, Integer fromUserId, Integer toUserId, Integer articleId) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keywords", keywords);
+		params.put("fromUserId", fromUserId);
+		params.put("toUserId", toUserId);
+		params.put("articleId", articleId);
 		List<CommentEntity> users = commentMapper.getListByParam(params);
 		PageInfo<CommentEntity> commentPage= new PageInfo<CommentEntity>(users);
 		return commentPage;

@@ -1,6 +1,9 @@
 package com.mlzone.csuldw.dao;
 
+import java.io.Serializable;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.mlzone.csuldw.entity.CommentEntity;
 
@@ -27,6 +30,17 @@ public interface ICommentMapper extends BaseMapper<CommentEntity>{
      * @since
      */
     List<CommentEntity> getCommentListByArticleId(Integer articleId);
+    
+    /**
+     * 获取子评论
+     *
+     * Author:liudiwei
+     * Date:2017年12月15日
+     * @param id
+     * @return
+     * @since
+     */
+    List<CommentEntity> getSubCommentListById(@Param("id") Serializable id);
     
     /**
      * 根据文章ID获取这篇文章的总评论数量

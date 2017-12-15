@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.mlzone.csuldw.common.DateUtils;
 import com.mlzone.csuldw.entity.CommentEntity;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.ICommentService;
@@ -47,6 +48,7 @@ public class CommentController {
 	public Map<String, Object> saveOrUpdateComment(CommentEntity commentEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
+			commentEntity.setSendDate(DateUtils.getFormatedDate(DateUtils.DATE_FORMAT_PATTEN_TYPE1));
 			int saveResult = commentService.saveOrUpdateComment(commentEntity);
 			if(saveResult > 0){
 				resultMap.put("result", "success");
@@ -158,11 +160,12 @@ public class CommentController {
 	
 	@RequestMapping(value = "/comment/getCommentListByParam.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> getUserListByParam(String keywords, int pageNum, int pageSize) {
+	public Map<String, Object> getCommentListByParam(String keywords, int pageNum, int pageSize,
+			Integer fromUserId, Integer toUserId, Integer articleId) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info("keywords:" + keywords);
-			PageInfo<CommentEntity> comments = commentService.getCommentListByParam(keywords, pageNum, pageSize);
+			PageInfo<CommentEntity> comments = commentService.getCommentListByParam(keywords, pageNum, pageSize, fromUserId, toUserId, articleId);
 			resultMap.put("data", comments);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
