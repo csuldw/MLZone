@@ -95,4 +95,13 @@ public class UserServiceImpl implements IUserService {
 		}
 		return isExist;
 	}
+
+	@Override
+	public UserEntity login(String username, String password) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("username", username);
+		params.put("password", password);
+		UserEntity user = userMapper.login(params);
+		return user;
+	}
 }

@@ -5,6 +5,9 @@ import com.github.pagehelper.StringUtil;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
+
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -14,6 +17,7 @@ import java.util.List;
 
 public class CorsFilter implements Filter
 {
+	Logger log  = Logger.getLogger(Filter.class);
 	private String allowOrigin;
 	private String allowMethods;
 	private String allowCredentials;
@@ -43,7 +47,8 @@ public class CorsFilter implements Filter
 			if ("*".equals(allowOrigin.trim()))
 			{
 				response.setHeader("Access-Control-Allow-Origin", "*");
-			} else
+			} 
+			else
 			{
 				List<String> allowOriginList = Arrays.asList(allowOrigin.split(","));
 				if (null != allowOriginList && allowOriginList.size() > 0)
@@ -65,6 +70,7 @@ public class CorsFilter implements Filter
 		{
 			response.setHeader("Access-Control-Allow-Credentials", allowCredentials);
 		}
+		response.setHeader("Access-Control-Allow-Origin", "http://localhost:9009");
 		if (StringUtil.isNotEmpty(allowHeaders))
 		{
 			response.setHeader("Access-Control-Allow-Headers", allowHeaders);

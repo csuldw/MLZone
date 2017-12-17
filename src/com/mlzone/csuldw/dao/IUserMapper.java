@@ -17,4 +17,16 @@ public interface IUserMapper extends BaseMapper<UserEntity>{
      */
     int checkUserExistByUsername(String username);
     
+    /**
+     * 登录判断
+     *
+     * Author:liudiwei
+     * Date:2017年12月17日
+     * @param username
+     * @param password
+     * @return
+     * @since
+     */
+    UserEntity login(Object params);
+    
 }

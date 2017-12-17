@@ -2,6 +2,7 @@ package com.mlzone.csuldw.service;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.entity.UserEntity;
@@ -31,5 +32,7 @@ public interface IUserService {
     public UserEntity getUserById(Integer id);
     
     boolean checkUserExistByUsername(String username);
+    
+    public UserEntity login(String username, String password);
 
 }

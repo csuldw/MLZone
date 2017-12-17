@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -96,7 +99,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/getUserListByParam.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> getUserListByParam(String keywords, int pageNum, int pageSize) {
+	public Map<String, Object> getUserListByParam(String keywords, int pageNum, int pageSize) {		
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info("keywords:" + keywords);
@@ -156,5 +159,41 @@ public class UserController {
 			System.out.println(e);
 		}
 		return resultMap;
+	}
+	
+	@RequestMapping(value = "/user/login.do", method = {RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> login(HttpServletRequest request, String username, String password)
+	{
+		Map<String, Object> result = new HashMap<>();
+		UserEntity user = userService.login(username, password);
+		if(user != null)
+		{
+			log.info(user.toString());
+			request.getSession().setAttribute("user", user);
+			result.put("result", "success");
+			result.put("session", request.getSession().toString());
+		}
+		else
+		{
+			result.put("result", "error");
+		}
+		return result;
+	}
+	
+	@RequestMapping(value = "/user/getAuth.do", method = {RequestMethod.GET})
+	@ResponseBody
+	public Map<String, Object> getAuth(HttpSession session)
+	{
+		Map<String, Object> result = new HashMap<>();
+		if(session.getAttribute("user") != null)
+		{
+			result.put("result", "success");
+		}
+		else
+		{
+			result.put("result", "error");
+		}
+		return result;
 	}
 }

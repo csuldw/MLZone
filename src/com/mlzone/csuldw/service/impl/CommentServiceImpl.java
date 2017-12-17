@@ -54,12 +54,13 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public PageInfo<CommentEntity> getCommentListByParam(String keywords,
-			int pageNum, int pageSize, Integer fromUserId, Integer toUserId, Integer articleId) {
+			int pageNum, int pageSize, Integer fromUserId, Integer toUserId, Integer articleId, String parentCommentId) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("keywords", keywords);
 		params.put("fromUserId", fromUserId);
 		params.put("toUserId", toUserId);
 		params.put("articleId", articleId);
+		params.put("parentCommentId", parentCommentId);
 		List<CommentEntity> users = commentMapper.getListByParam(params);
 		PageInfo<CommentEntity> commentPage= new PageInfo<CommentEntity>(users);
 		return commentPage;

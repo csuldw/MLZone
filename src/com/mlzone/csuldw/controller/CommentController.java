@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -160,12 +162,13 @@ public class CommentController {
 	
 	@RequestMapping(value = "/comment/getCommentListByParam.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> getCommentListByParam(String keywords, int pageNum, int pageSize,
-			Integer fromUserId, Integer toUserId, Integer articleId) {
+	public Map<String, Object> getCommentListByParam(HttpSession session, String keywords, int pageNum, int pageSize,
+			Integer fromUserId, Integer toUserId, Integer articleId, String parentCommentId) {
+		log.info("abcde" + session.getAttribute("user"));
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info("keywords:" + keywords);
-			PageInfo<CommentEntity> comments = commentService.getCommentListByParam(keywords, pageNum, pageSize, fromUserId, toUserId, articleId);
+			PageInfo<CommentEntity> comments = commentService.getCommentListByParam(keywords, pageNum, pageSize, fromUserId, toUserId, articleId, parentCommentId);
 			resultMap.put("data", comments);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
