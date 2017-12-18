@@ -1,5 +1,6 @@
 package com.mlzone.csuldw.controller;
 
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.DateUtils;
+import com.mlzone.csuldw.common.OAuthTokenUtils;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
-import com.mysql.jdbc.log.Log;
 
 /**
  * 
@@ -171,28 +174,47 @@ public class UserController {
 		{
 			log.info(user.toString());
 			request.getSession().setAttribute("user", user);
-			result.put("result", "success");
-			result.put("session", request.getSession().toString());
+			result.put("msg", "success");
+			result.put("code", "1000");
+			OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
+			
+			String token = tokenUtils.token("MLZone", "zola", user.getUsername());
+			result.put("tokenId", token);
+			result.put("userId", user.getUsername());
+//			result.put("session", request.getSession().toString()); 
 		}
 		else
 		{
-			result.put("result", "error");
+			result.put("msg", "token认证失败");
+			result.put("code", "4000");
 		}
 		return result;
 	}
 	
 	@RequestMapping(value = "/user/getAuth.do", method = {RequestMethod.GET})
 	@ResponseBody
-	public Map<String, Object> getAuth(HttpSession session)
+	public Map<String, Object> getAuth(HttpSession session, HttpServletRequest request)
 	{
 		Map<String, Object> result = new HashMap<>();
-		if(session.getAttribute("user") != null)
-		{
-			result.put("result", "success");
+		String authToken = request.getHeader("O-Auth-Token");
+		String userId = request.getHeader("O-User-Id");
+		OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
+		Map<String, Object> parseRes = tokenUtils.parseToken(authToken);
+		System.out.println(parseRes);
+		if(Integer.parseInt(parseRes.get("code").toString()) == 1000){
+			JSONObject jsonObj = new JSONObject(parseRes.get("data").toString());
+			if(userId!= null && userId.equals(jsonObj.get("userId")) ){
+				result.put("code", "1000");
+				result.put("isAuth", 1);
+				result.put("msg", "token认证成功!");
+			}else{
+				result.put("code", "4002");
+				result.put("isAuth", 0);
+				result.put("msg", "token认证失败!");
+			}
 		}
-		else
-		{
-			result.put("result", "error");
+		else{
+			result = parseRes;
 		}
 		return result;
 	}
