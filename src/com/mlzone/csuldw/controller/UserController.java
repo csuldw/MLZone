@@ -197,7 +197,7 @@ public class UserController {
 	{
 		Map<String, Object> result = new HashMap<>();
 		String authToken = request.getHeader("O-Auth-Token");
-		String userId = request.getHeader("O-User-Id");
+		String userId = request.getHeader("O-Auth-UserId");
 		OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
 		Map<String, Object> parseRes = tokenUtils.parseToken(authToken);
 		System.out.println(parseRes);
