@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.Page;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
+import com.mlzone.csuldw.entity.vo.ArticleCountStatVo;
 
 /**
  * 
