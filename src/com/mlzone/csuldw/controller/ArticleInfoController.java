@@ -231,7 +231,7 @@ public class ArticleInfoController {
     }
     
     
-    @RequestMapping(value = "/file/getArticleCountStatByParam.do", method = {RequestMethod.POST})
+    @RequestMapping(value = "/article/getArticleCountStatByParam.do", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> getArticleCountStatByParam(String queryType)
     {

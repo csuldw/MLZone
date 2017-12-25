@@ -212,4 +212,13 @@
 		</if>
 	</select>
 	
+	<select id="getArticleCountByQueryType" resultType="com.mlzone.csuldw.entity.vo.ArticleCountStatVo">
+		SELECT
+			date_format(t.public_date, #{queryType}) queryType,
+			count(*) articleNumber
+		FROM
+			mlzone.tb_article_info t
+		GROUP BY queryType
+	</select>
+	
 </mapper>
