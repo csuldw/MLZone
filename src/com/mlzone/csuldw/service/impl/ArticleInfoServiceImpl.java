@@ -68,5 +68,20 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 		Page<ArticleInfoEntity> articlePage= (Page<ArticleInfoEntity>) articleInfoMapper.getListByParam(params);
 		return articlePage;
 	}
+	
+	@Override
+	public List<ArticleCountStatVo> getArticleCountByParam(String queryType)
+	{
+		Map<String, Object> params = new HashMap<>();
+		if (queryType != null && "year".equals(queryType) )
+		{
+			params.put("queryType", "%Y");
+		}
+		else
+		{
+			params.put("queryType", "%Y-%m");
+		}
+		return articleInfoMapper.getArticleCountByQueryType(params);
+	}
 
 }
