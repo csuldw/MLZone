@@ -20,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.FileUploadUtil;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
+import com.mlzone.csuldw.entity.vo.ArticleCountStatVo;
 import com.mlzone.csuldw.service.IArticleInfoService;
 
 /**
@@ -225,6 +226,26 @@ public class ArticleInfoController {
             log.error("上传文件异常", e);
             resultMap.put("result", "error");
             resultMap.put("reason", "上传文件异常");
+        }
+        return resultMap;
+    }
+    
+    
+    @RequestMapping(value = "/file/getArticleCountStatByParam.do", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> getArticleCountStatByParam(String queryType)
+    {
+        Map<String, Object> resultMap = new HashMap<>();
+        try
+        {
+        	List<ArticleCountStatVo> articleCountStat = articleInfoService.getArticleCountByParam(queryType);
+            resultMap.put("result", "success");
+            resultMap.put("articleCountStat", articleCountStat);
+        }
+        catch (Exception e)
+        {
+            log.error("获取文章数量统计失败" + e.toString());
+            resultMap.put("result", "error");
         }
         return resultMap;
     }
