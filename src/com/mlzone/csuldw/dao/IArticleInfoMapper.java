@@ -33,4 +33,6 @@ public interface IArticleInfoMapper extends BaseMapper<ArticleInfoEntity>{
      * @since
      */
     int countArticleInfoByParams(String keywords, String tag, String category);
+	
+    List<ArticleCountStatVo> getArticleCountByQueryType(Object params);
 }
