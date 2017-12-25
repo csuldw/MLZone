@@ -29,4 +29,6 @@ public interface IArticleInfoService {
 
     int countArticleInfoByParams(String keywords, String tag, String category);
 
+    List<ArticleCountStatVo> getArticleCountByParam(String queryType);
+
 }
