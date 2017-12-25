@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
+import com.mlzone.csuldw.entity.vo.ArticleCountStatVo;
 
 public interface IArticleInfoMapper extends BaseMapper<ArticleInfoEntity>{
 	
