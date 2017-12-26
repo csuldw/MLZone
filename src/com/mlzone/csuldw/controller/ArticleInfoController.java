@@ -106,11 +106,17 @@ public class ArticleInfoController {
 	@RequestMapping(value = "/articleInfo/getArticelInfoList.do", method = {RequestMethod.POST})
 	@ResponseBody
 	public Map<String, Object> getArticelInfoList(int pageNum, int pageSize,
+			@RequestParam(required=false) String title,
+			@RequestParam(required=false) String author,
+			@RequestParam(required=false) String tags,
+			@RequestParam(required=false) String categoryName,
+			@RequestParam(required=false) String publicDate,
 			@RequestParam(required=false) String keywords) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info("keywords" + keywords);
-			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByPage(keywords, pageNum, pageSize).toPageInfo();
+			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByPage(keywords,
+					author, title, publicDate, categoryName, tags, pageNum, pageSize).toPageInfo();
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
