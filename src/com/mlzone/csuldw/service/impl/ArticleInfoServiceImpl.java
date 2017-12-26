@@ -62,10 +62,16 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	}
 
 	@Override
-	public Page<ArticleInfoEntity> getArticleInfoListByPage(String keywords, int pageNum, int pageSize) {
+	public Page<ArticleInfoEntity> getArticleInfoListByPage(String keywords, 
+			String author, String title, String publicDate, String categoryName, String tags, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		Map<String, Object> params = new HashMap<>();
 		params.put("keywords", keywords);
+		params.put("author", author);
+		params.put("title", title);
+		params.put("publicDate", publicDate);
+		params.put("categoryName", categoryName);
+		params.put("tags", tags);
 		Page<ArticleInfoEntity> articlePage= (Page<ArticleInfoEntity>) articleInfoMapper.getListByParam(params);
 		return articlePage;
 	}
