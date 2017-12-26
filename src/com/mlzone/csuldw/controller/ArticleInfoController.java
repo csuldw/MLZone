@@ -114,7 +114,7 @@ public class ArticleInfoController {
 			@RequestParam(required=false) String keywords) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			log.info("keywords" + keywords);
+			log.info("title:" + title + " | author:" + author + " |tags:" + tags + " |categoryName:" + categoryName + " | publicDate:" + publicDate + " | keywords" + keywords);
 			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByPage(keywords,
 					author, title, publicDate, categoryName, tags, pageNum, pageSize).toPageInfo();
 			resultMap.put("data", articleInfoList);

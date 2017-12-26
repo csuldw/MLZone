@@ -82,11 +82,11 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 		Map<String, Object> params = new HashMap<>();
 		if (queryType != null && "year".equals(queryType) )
 		{
-			params.put("queryType", "%Y年");
+			params.put("queryType", "%Y");
 		}
 		else
 		{
-			params.put("queryType", "%Y年%m月");
+			params.put("queryType", "%Y-%m");
 		}
 		return articleInfoMapper.getArticleCountByQueryType(params);
 	}

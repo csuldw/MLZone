@@ -223,13 +223,13 @@
 			AND t.author=#{author}
 		</if>
 		<if test=" tags != null and tags != '' ">
-			AND (t.tags LIKE CONCAT('%',#{tags},'%')
+			AND t.tags LIKE CONCAT('%',#{tags},'%')
 		</if>
 		<if test=" categoryName != null and categoryName != '' ">
 			AND a.category_name=#{categoryName}
 		</if>
 		<if test=" publicDate != null and publicDate != '' ">
-			AND (t.public_date LIKE CONCAT('%',#{publicDate},'%')
+			AND t.public_date LIKE CONCAT('%',#{publicDate},'%')
 		</if>
 		<if test="keywords != null and keywords != ''">
 			AND CONCAT_WS(
