@@ -8,7 +8,7 @@ package com.mlzone.csuldw.common;
 public class ResultModel
 {
 	private Integer code;
-	private String data;
+	private Object data;
 	private String msg;
 	
 	private PropertyUtil pt = PropertyUtil.getInstance("result");
@@ -30,12 +30,13 @@ public class ResultModel
 		this.code = code;
 		this.setMsg(pt.getMsg(code.toString()));
 	}
-	public String getData()
+	public Object getData()
 	{
 		return data;
 	}
-	public void setData(String data)
+	public void setData(Object data)
 	{
 		this.data = data;
 	}
+	
 }
