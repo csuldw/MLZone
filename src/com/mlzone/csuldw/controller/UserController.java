@@ -57,7 +57,6 @@ public class UserController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info(userEntity.toString());
-			userEntity.setUsername(MD5Util.getMD5(userEntity.getUsername()));
 			userEntity.setPassword(MD5Util.getMD5(userEntity.getPassword()));
 			if(userEntity.getId() == 0){
 				userEntity.setRegDate(DateUtils.getFormatedDate(DateUtils.DATE_FORMAT_PATTEN_TYPE1));
@@ -158,7 +157,7 @@ public class UserController {
 	public Map<String, Object> checkUserExistByUsername(String username){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			boolean isExist = userService.checkUserExistByUsername(MD5Util.getMD5(username));
+			boolean isExist = userService.checkUserExistByUsername(username);
 			resultMap.put("isExist", isExist);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -183,7 +182,6 @@ public class UserController {
 	public ResultModel login(HttpServletRequest request, String username, String password)
 	{
 		ResultModel result = new ResultModel();
-		username = MD5Util.getMD5(username);
 		password = MD5Util.getMD5(password);
 		UserEntity user = userService.login(username, password);
 		log.info("username: " + username + " | password: "  + password);
@@ -223,6 +221,7 @@ public class UserController {
 		ResultModel result = new ResultModel();
 		String authToken = request.getHeader("O-Auth-Token");
 		String userId = request.getHeader("O-Auth-UserId");
+		log.info(authToken + "|" + userId); 
 		OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
 		Map<String, Object> parseRes = tokenUtils.parseToken(authToken);
 		log.info(parseRes);

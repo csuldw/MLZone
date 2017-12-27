@@ -142,7 +142,7 @@
 	<select id="getListByParam" parameterType="Map" resultMap="BaseResultMap">		
 		SELECT *
 		FROM tb_comment
-		WHERE 1 = 1
+		WHERE 1 = 1 AND parent_comment_id=0
 		<if test="articleId != null">
 			AND article_id = #{articleId}
 		</if>
