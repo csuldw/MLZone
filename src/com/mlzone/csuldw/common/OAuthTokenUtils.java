@@ -175,7 +175,7 @@ public class OAuthTokenUtils {
 			result.put("msg", "success");
 		} catch (Exception e) {
 			log.info("解析token失败" + e.toString());
-			result.put("code", 2001);
+			result.put("code", 4001);
 			result.put("msg", "解析token结果异常!");
 		} 
 //		System.out.println("ID: " + claims.getId());
