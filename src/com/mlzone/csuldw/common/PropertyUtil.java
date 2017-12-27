@@ -23,6 +23,21 @@ public final class PropertyUtil
         this(SYSTEM_PROPERTY);
     }
 
+    private static PropertyUtil instance=null;
+    public static synchronized PropertyUtil getInstance(String key){
+        if(instance == null){
+        	if(key == null)
+        	{
+        		instance=new PropertyUtil();
+        	}
+        	else
+        	{
+        		instance=new PropertyUtil(key);
+        	}
+        }
+        return instance;
+    }
+    
     public PropertyUtil(String key)
     {
     	InputStream instream = null;
