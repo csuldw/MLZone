@@ -19,6 +19,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.FileUploadUtil;
+import com.mlzone.csuldw.common.FileUtil;
+import com.mlzone.csuldw.common.ResultModel;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
 import com.mlzone.csuldw.entity.vo.ArticleCountStatVo;
 import com.mlzone.csuldw.service.IArticleInfoService;
@@ -255,4 +257,14 @@ public class ArticleInfoController {
         }
         return resultMap;
     }
+    
+	
+	@RequestMapping(value = "/file/loadContentByPath.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultModel loadContentFromFile(String filePath)
+	{
+		ResultModel resultMap = new ResultModel();
+		resultMap = FileUtil.loadContentByPath(filePath);
+		return resultMap;
+	}
 }
