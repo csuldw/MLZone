@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.mlzone.csuldw.common.DateUtils;
+import com.mlzone.csuldw.common.MD5Util;
 import com.mlzone.csuldw.common.OAuthTokenUtils;
+import com.mlzone.csuldw.common.ResultModel;
 import com.mlzone.csuldw.entity.UserEntity;
 import com.mlzone.csuldw.service.IUserService;
 
@@ -54,7 +56,9 @@ public class UserController {
 	public Map<String, Object> saveOrUpdateUser(@RequestBody UserEntity userEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			System.out.println(userEntity.toString());
+			log.info(userEntity.toString());
+			userEntity.setUsername(MD5Util.getMD5(userEntity.getUsername()));
+			userEntity.setPassword(MD5Util.getMD5(userEntity.getPassword()));
 			if(userEntity.getId() == 0){
 				userEntity.setRegDate(DateUtils.getFormatedDate(DateUtils.DATE_FORMAT_PATTEN_TYPE1));
 			}
@@ -154,7 +158,7 @@ public class UserController {
 	public Map<String, Object> checkUserExistByUsername(String username){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			boolean isExist = userService.checkUserExistByUsername(username);
+			boolean isExist = userService.checkUserExistByUsername(MD5Util.getMD5(username));
 			resultMap.put("isExist", isExist);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -164,57 +168,76 @@ public class UserController {
 		return resultMap;
 	}
 	
+	/**
+	 * 登录
+	 * 
+	 * @author liudiwei
+	 * @since 2017年12月27日 
+	 * @param request
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	@RequestMapping(value = "/user/login.do", method = {RequestMethod.POST})
 	@ResponseBody
-	public Map<String, Object> login(HttpServletRequest request, String username, String password)
+	public ResultModel login(HttpServletRequest request, String username, String password)
 	{
-		Map<String, Object> result = new HashMap<>();
+		ResultModel result = new ResultModel();
+		username = MD5Util.getMD5(username);
+		password = MD5Util.getMD5(password);
 		UserEntity user = userService.login(username, password);
+		log.info("username: " + username + " | password: "  + password);
+		Map<String, Object> data = new HashMap<>();
 		if(user != null)
 		{
 			log.info(user.toString());
 			request.getSession().setAttribute("user", user);
-			result.put("msg", "success");
-			result.put("code", "1000");
+			result.setCode(1000);
 			OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
 			
 			String token = tokenUtils.token("MLZone", "zola", user.getUsername());
-			result.put("tokenId", token);
-			result.put("userId", user.getUsername());
-//			result.put("session", request.getSession().toString()); 
+			data.put("tokenId", token);
+			data.put("userId", user.getUsername());
+			result.setData(data);
 		}
 		else
 		{
-			result.put("msg", "token认证失败");
-			result.put("code", "4000");
+			result.setCode(4003);
 		}
 		return result;
 	}
 	
+	/**
+	 * 获取token认证
+	 * 
+	 * @author liudiwei
+	 * @since 2017年12月27日 
+	 * @param session
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/user/getAuth.do", method = {RequestMethod.GET})
 	@ResponseBody
-	public Map<String, Object> getAuth(HttpSession session, HttpServletRequest request)
+	public ResultModel getAuth(HttpSession session, HttpServletRequest request)
 	{
-		Map<String, Object> result = new HashMap<>();
+		ResultModel result = new ResultModel();
 		String authToken = request.getHeader("O-Auth-Token");
 		String userId = request.getHeader("O-Auth-UserId");
 		OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
 		Map<String, Object> parseRes = tokenUtils.parseToken(authToken);
-		System.out.println(parseRes);
+		log.info(parseRes);
 		if(Integer.parseInt(parseRes.get("code").toString()) == 1000){
 			JSONObject jsonObj = new JSONObject(parseRes.get("data").toString());
 			if(userId!= null && userId.equals(jsonObj.get("userId")) ){
-				result.put("code", "1000");
-				result.put("isAuth", 1);
-				result.put("msg", "token认证成功!");
+				result.setCode(1000);
+				result.setMsg("token认证成功!");
 			}else{
-				result.put("code", "4002");
-				result.put("isAuth", 0);
-				result.put("msg", "token认证失败!");
+				result.setCode(4001);
+				result.setMsg("认证失败,请重新登录！");
 			}
 		}
 		else{
-			result = parseRes;
+			result.setCode(2001);
 		}
 		return result;
 	}
