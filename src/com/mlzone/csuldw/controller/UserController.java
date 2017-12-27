@@ -237,7 +237,7 @@ public class UserController {
 			}
 		}
 		else{
-			result.setCode(2001);
+			result.setCode(4001);
 		}
 		return result;
 	}
