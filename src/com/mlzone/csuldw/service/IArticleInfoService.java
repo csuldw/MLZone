@@ -20,7 +20,7 @@ public interface IArticleInfoService {
 	
     int saveOrUpdateArticleInfo(ArticleInfoEntity articleInfoEntity);
     
-    Page<ArticleInfoEntity>getArticleInfoListByPage(String keywords, String author, String title, String publicDate, String categoryName,  String tags, int pageNum, int pageSize);
+    Page<ArticleInfoEntity>getArticleInfoListByPage(String keywords, String author, String title, String publicDate, String categoryName,  String tags, Integer isPublish, int pageNum, int pageSize);
 
     Page<ArticleInfoEntity> getArticleInfoList(int pageNum, int pageSize);
 
