@@ -113,12 +113,13 @@ public class ArticleInfoController {
 			@RequestParam(required=false) String tags,
 			@RequestParam(required=false) String categoryName,
 			@RequestParam(required=false) String publicDate,
-			@RequestParam(required=false) String keywords) {
+			@RequestParam(required=false) String keywords,
+			@RequestParam(required=false) Integer isPublish) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			log.info("title:" + title + " | author:" + author + " |tags:" + tags + " |categoryName:" + categoryName + " | publicDate:" + publicDate + " | keywords" + keywords);
+			log.info("title:" + title + " | author:" + author + " |tags:" + tags + " |categoryName:" + categoryName + " | publicDate:" + publicDate + " | keywords" + keywords + " | isPublish" + isPublish);
 			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getArticleInfoListByPage(keywords,
-					author, title, publicDate, categoryName, tags, pageNum, pageSize).toPageInfo();
+					author, title, publicDate, categoryName, tags, isPublish, pageNum, pageSize).toPageInfo();
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
