@@ -63,7 +63,7 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 
 	@Override
 	public Page<ArticleInfoEntity> getArticleInfoListByPage(String keywords, 
-			String author, String title, String publicDate, String categoryName, String tags, int pageNum, int pageSize) {
+			String author, String title, String publicDate, String categoryName, String tags, Integer isPublish, int pageNum, int pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		Map<String, Object> params = new HashMap<>();
 		params.put("keywords", keywords);
@@ -72,6 +72,7 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 		params.put("publicDate", publicDate);
 		params.put("categoryName", categoryName);
 		params.put("tags", tags);
+		params.put("isPublish", isPublish);
 		Page<ArticleInfoEntity> articlePage= (Page<ArticleInfoEntity>) articleInfoMapper.getListByParam(params);
 		return articlePage;
 	}
@@ -84,9 +85,13 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 		{
 			params.put("queryType", "%Y");
 		}
-		else
+		else if (queryType != null && "month".equals(queryType) )
 		{
 			params.put("queryType", "%Y-%m");
+		}
+		else
+		{
+			params.put("queryType", queryType);
 		}
 		return articleInfoMapper.getArticleCountByQueryType(params);
 	}
