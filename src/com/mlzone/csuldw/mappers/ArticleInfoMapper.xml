@@ -257,6 +257,7 @@
 					LEFT JOIN mlzone.tb_article_category a on t.category_id=a.id
 				WHERE t.is_publish = 1
 				GROUP BY queryType
+				ORDER BY queryType desc
 			</when>
 			<otherwise>
 				SELECT
@@ -266,6 +267,7 @@
 					mlzone.tb_article_info t
 				WHERE t.is_publish = 1
 				GROUP BY queryType
+				ORDER BY queryType desc
 			</otherwise>
 		</choose>
 	</select>
