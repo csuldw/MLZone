@@ -219,6 +219,9 @@
 		<if test=" title != null and title != '' ">
 			AND t.title=#{title}
 		</if>
+		<if test=" isPublish != null ">
+			AND t.is_publish=#{isPublish}
+		</if>
 		<if test=" author != null and author != '' ">
 			AND t.author=#{author}
 		</if>
@@ -244,12 +247,27 @@
 	</select>
 	
 	<select id="getArticleCountByQueryType" resultType="com.mlzone.csuldw.entity.vo.ArticleCountStatVo">
-		SELECT
-			date_format(t.public_date, #{queryType}) queryType,
-			count(*) articleNumber
-		FROM
-			mlzone.tb_article_info t
-		GROUP BY queryType
+		<choose>
+			<when test=" queryType == 'articleCategory' ">
+				SELECT
+					a.category_name queryType,
+					count(*) articleNumber
+				FROM
+					mlzone.tb_article_info t
+					LEFT JOIN mlzone.tb_article_category a on t.category_id=a.id
+				WHERE t.is_publish = 1
+				GROUP BY queryType
+			</when>
+			<otherwise>
+				SELECT
+					date_format(t.public_date, #{queryType}) queryType,
+					count(*) articleNumber
+				FROM
+					mlzone.tb_article_info t
+				WHERE t.is_publish = 1
+				GROUP BY queryType
+			</otherwise>
+		</choose>
 	</select>
 	
 </mapper>
