@@ -14,6 +14,8 @@ public class ArticleInfoEntity {
     private String title;
 
     private String filePath;
+    
+    private String imagePath;
 
     private Integer userId;
     
@@ -34,6 +36,8 @@ public class ArticleInfoEntity {
     private UserEntity userEntity;
     
     private ArticleCategoryEntity articleCategoryEntity;
+    
+    private Integer commentCount;
     
     public Integer getId() {
         return id;
@@ -59,7 +63,15 @@ public class ArticleInfoEntity {
         this.filePath = filePath == null ? null : filePath.trim();
     }
 
-    public Integer getUserId() {
+    public String getImagePath() {
+		return imagePath;
+	}
+
+	public void setImagePath(String imagePath) {
+		this.imagePath = imagePath;
+	}
+
+	public Integer getUserId() {
         return userId;
     }
 
@@ -137,6 +149,14 @@ public class ArticleInfoEntity {
 
 	public void setArticleCategoryEntity(ArticleCategoryEntity articleCategoryEntity) {
 		this.articleCategoryEntity = articleCategoryEntity;
+	}
+
+	public Integer getCommentCount() {
+		return commentCount;
+	}
+
+	public void setCommentCount(Integer commentCount) {
+		this.commentCount = commentCount;
 	}
 
 	@Override

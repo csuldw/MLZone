@@ -5,6 +5,7 @@
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
+		<result column="image_path" property="imagePath" jdbcType="VARCHAR" />
 		<result column="author" property="author" jdbcType="VARCHAR" />
 		<result column="user_id" property="userId" jdbcType="INTEGER" />
 		<result column="keywords" property="keywords" jdbcType="VARCHAR" />
@@ -15,9 +16,10 @@
 		<result column="public_date" property="publicDate" jdbcType="VARCHAR" />
 		<association property="userEntity" column="user_id" select="com.mlzone.csuldw.dao.IUserMapper.getById" />
 		<association property="articleCategoryEntity" column="category_id" select="com.mlzone.csuldw.dao.IArticleCategoryMapper.getById" />
+		<association property="commentCount" column="id" select="com.mlzone.csuldw.dao.ICommentMapper.countCommentByArticleId" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, title, file_path, author, user_id, keywords, tags, post_type, is_publish, category_id,
+		id, title, file_path, image_path, author, user_id, keywords, tags, post_type, is_publish, category_id,
 		public_date
 	</sql>
 	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -35,6 +37,7 @@
 			id, 
 			title, 
 			file_path,
+			image_path,
 			author,
 			user_id, 
 			keywords, 
@@ -48,6 +51,7 @@
 			#{id,jdbcType=INTEGER}, 
 			#{title,jdbcType=VARCHAR},
 			#{filePath,jdbcType=VARCHAR},
+			#{imagePath,jdbcType=VARCHAR},
 			#{author,jdbcType=VARCHAR},
 			#{userId,jdbcType=INTEGER}, 
 			#{keywords,jdbcType=VARCHAR}, 
@@ -60,6 +64,7 @@
 		ON DUPLICATE KEY UPDATE
 			title = #{title,jdbcType=VARCHAR},
 			file_path = #{filePath,jdbcType=VARCHAR},
+			image_path = #{imagePath,jdbcType=VARCHAR},
 			author = #{author,jdbcType=VARCHAR},
 			user_id = #{userId,jdbcType=INTEGER},
 			keywords = #{keywords,jdbcType=VARCHAR},
@@ -80,6 +85,9 @@
 			</if>
 			<if test="filePath != null">
 				file_path,
+			</if>
+			<if test="imagePath != null">
+				image_path,
 			</if>
 			<if test="author != null">
 				author,
@@ -116,6 +124,9 @@
 			<if test="filePath != null">
 				#{filePath,jdbcType=VARCHAR},
 			</if>
+			<if test="imagePath != null">
+				#{imagePath,jdbcType=VARCHAR},
+			</if>
 			<if test="author != null">
 				#{author,jdbcType=VARCHAR},
 			</if>
@@ -151,6 +162,9 @@
 			<if test="filePath != null">
 				file_path = #{filePath,jdbcType=VARCHAR},
 			</if>
+			<if test="imagePath != null">
+				image_path = #{imagePath,jdbcType=VARCHAR},
+			</if>
 			<if test="author != null">
 				author = #{author,jdbcType=VARCHAR},
 			</if>
@@ -182,6 +196,7 @@
 		update tb_article_info
 		set title = #{title,jdbcType=VARCHAR},
 		file_path = #{filePath,jdbcType=VARCHAR},
+		image_path = #{imagePath,jdbcType=VARCHAR},
 		author = #{author,jdbcType=VARCHAR},
 		user_id = #{userId,jdbcType=INTEGER},
 		keywords = #{keywords,jdbcType=VARCHAR},
@@ -202,6 +217,7 @@
 			t.id id,
 			t.title title,
 			t.file_path filePath,
+			t.image_path imagePath,
 			t.author author,
 			t.user_id userId,
 			t.keywords keywords,
@@ -218,6 +234,9 @@
 		WHERE 1 = 1
 		<if test=" title != null and title != '' ">
 			AND t.title=#{title}
+		</if>
+		<if test=" isPublish != null ">
+			AND t.is_publish=#{isPublish}
 		</if>
 		<if test=" author != null and author != '' ">
 			AND t.author=#{author}
@@ -244,12 +263,29 @@
 	</select>
 	
 	<select id="getArticleCountByQueryType" resultType="com.mlzone.csuldw.entity.vo.ArticleCountStatVo">
-		SELECT
-			date_format(t.public_date, #{queryType}) queryType,
-			count(*) articleNumber
-		FROM
-			mlzone.tb_article_info t
-		GROUP BY queryType
+		<choose>
+			<when test=" queryType == 'articleCategory' ">
+				SELECT
+					a.category_name queryType,
+					count(*) articleNumber
+				FROM
+					mlzone.tb_article_info t
+					LEFT JOIN mlzone.tb_article_category a on t.category_id=a.id
+				WHERE t.is_publish = 1
+				GROUP BY queryType
+				ORDER BY queryType desc
+			</when>
+			<otherwise>
+				SELECT
+					date_format(t.public_date, #{queryType}) queryType,
+					count(*) articleNumber
+				FROM
+					mlzone.tb_article_info t
+				WHERE t.is_publish = 1
+				GROUP BY queryType
+				ORDER BY queryType desc
+			</otherwise>
+		</choose>
 	</select>
 	
 </mapper>

@@ -70,7 +70,7 @@ public class CorsFilter implements Filter
 		{
 			response.setHeader("Access-Control-Allow-Credentials", allowCredentials);
 		}
-		response.setHeader("Access-Control-Allow-Origin", "http://localhost:9009");
+		//response.setHeader("Access-Control-Allow-Origin", "http://localhost:9009");
 		if (StringUtil.isNotEmpty(allowHeaders))
 		{
 			response.setHeader("Access-Control-Allow-Headers", allowHeaders);
