@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.github.pagehelper.PageInfo;
-import com.mlzone.csuldw.common.FileUploadUtil;
+import com.mlzone.csuldw.common.DateUtils;
+import com.mlzone.csuldw.common.FileUtil;
 import com.mlzone.csuldw.common.FileUtil;
 import com.mlzone.csuldw.common.ResultModel;
 import com.mlzone.csuldw.entity.ArticleInfoEntity;
@@ -62,8 +63,7 @@ public class ArticleInfoController {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info(articleInfoEntity.toString());
-			int saveResult = articleInfoService
-					.saveOrUpdateArticleInfo(articleInfoEntity);
+			int saveResult = articleInfoService.saveOrUpdateArticleInfo(articleInfoEntity);
 			if (saveResult > 0) {
 				resultMap.put("result", "success");
 			} else {
@@ -244,14 +244,28 @@ public class ArticleInfoController {
 	@RequestMapping(value = "/file/uploadFile.do", method = { RequestMethod.POST })
 	@ResponseBody
 	public Map<String, Object> upLoadProjectFile(HttpServletRequest request,
-			@RequestParam("file") CommonsMultipartFile file) {
+			@RequestParam("file") CommonsMultipartFile file, 
+			@RequestParam(required = false) String uploadType) {
+		log.info("uploadType:" + uploadType);
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			String fileUploadPath = "/data01/";
 			String fullPath = fileUploadPath; // 文件夹路径
-
-			String fileName = file.getOriginalFilename(); // 文件名称
-			FileUploadUtil.upload(file.getInputStream(), fullPath, fileName);
+			if("article".equals(uploadType)){
+				fullPath += "/article/";
+			}
+			if("images".equals(uploadType)){
+				fullPath += "/images/";
+			}
+			String fileName = file.getOriginalFilename(); //文件名称
+			log.info("filePath: " + fullPath + fileName);
+//			if(FileUtil.checkFileExist(fullPath, fileName)){
+//				log.info(fullPath + "目录下存在该文件：" + fileName);
+//				long ts = DateUtils.getCurrentTimestamp();
+//				fileName = "f" + ts + "-" + fileName;
+//				log.info("保存文件重命名" + fileName);
+//			}
+			FileUtil.upload(file.getInputStream(), fullPath, fileName);
 			resultMap.put("result", "success");
 			resultMap.put("filePath", fullPath + fileName);
 			log.info("上传文件成功");

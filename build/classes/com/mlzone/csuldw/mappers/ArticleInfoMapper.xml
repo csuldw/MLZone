@@ -32,6 +32,7 @@
 		delete from tb_article_info
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
+	
 	<insert id="saveOrUpdate" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		insert into tb_article_info(
 			id, 
@@ -192,6 +193,34 @@
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
+	<insert id="save" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
+		insert into tb_article_info(
+			title, 
+			file_path,
+			image_path,
+			author,
+			user_id, 
+			keywords, 
+			tags,
+			post_type, 
+			is_publish,
+			category_id, 
+			public_date
+		)
+		values(
+			#{title,jdbcType=VARCHAR},
+			#{filePath,jdbcType=VARCHAR},
+			#{imagePath,jdbcType=VARCHAR},
+			#{author,jdbcType=VARCHAR},
+			#{userId,jdbcType=INTEGER}, 
+			#{keywords,jdbcType=VARCHAR}, 
+			#{tags,jdbcType=VARCHAR},
+			#{postType,jdbcType=INTEGER}, 
+			#{isPublish,jdbcType=INTEGER}, 
+			#{categoryId,jdbcType=INTEGER},
+			#{publicDate,jdbcType=VARCHAR}
+		) 
+	</insert>
 	<update id="update" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		update tb_article_info
 		set title = #{title,jdbcType=VARCHAR},
@@ -206,6 +235,10 @@
 		category_id = #{categoryId,jdbcType=INTEGER},
 		public_date = #{publicDate,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateAuthor" parameterType="Map">
+		update tb_article_info 	set	author = #{author}	where user_id = #{userId}
 	</update>
 	
  	<select id="getList" resultMap="BaseResultMap">

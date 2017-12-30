@@ -36,4 +36,16 @@ public interface IArticleInfoMapper extends BaseMapper<ArticleInfoEntity>{
     int countArticleInfoByParams(String keywords, String tag, String category);
 	
     List<ArticleCountStatVo> getArticleCountByQueryType(Object params);
+    
+    /**
+     * 更新文章中的关联作者
+     *
+     * Author:liudiwei
+     * Date:2017年12月30日
+     * @param userId
+     * @param author
+     * @return
+     * @since
+     */
+    int updateAuthor(@Param("userId") Integer userId, @Param("author") String author);
 }
