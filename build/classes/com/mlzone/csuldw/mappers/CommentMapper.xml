@@ -140,8 +140,9 @@
 	</update>
 	
 	<select id="getListByParam" parameterType="Map" resultMap="BaseResultMap">		
-		SELECT *
-		FROM tb_comment
+		SELECT 
+			*
+		FROM tb_comment 
 		WHERE 1 = 1 AND parent_comment_id=0
 		<if test="articleId != null">
 			AND article_id = #{articleId}
@@ -178,16 +179,10 @@
 		from tb_comment where user_id = #{userId}
 	</select>
 	
-	<select id="getSubCommentListById" resultType="com.mlzone.csuldw.entity.CommentEntity">
+	<select id="getSubCommentListById" resultMap="BaseResultMap">
 		select 
-			id id,
-			content content,
-			from_user_id fromUserId,
-			to_user_id toUserId,
-			article_id articleId,
-			parent_comment_id parentCommentId,
-			send_date sendDate
-		from tb_comment where parent_comment_id = #{id}
+			*
+		from tb_comment where tb_comment.parent_comment_id = #{id}
 	</select>
 
 	<select id="getCommentListByArticleId" resultType="com.mlzone.csuldw.entity.CommentEntity">

@@ -190,9 +190,10 @@ public class UserController {
 			result.setCode(1000);
 			OAuthTokenUtils tokenUtils =  OAuthTokenUtils.getInstance();
 			
-			String token = tokenUtils.token("MLZone", "zola", user.getUsername());
+			String userId = user.getId().toString();
+			String token = tokenUtils.token("MLZone", "zola", userId);
 			data.put("tokenId", token);
-			data.put("userId", user.getUsername());
+			data.put("userId", userId);
 			result.setData(data);
 		}
 		else
