@@ -11,6 +11,7 @@
 		<result column="keywords" property="keywords" jdbcType="VARCHAR" />
 		<result column="tags" property="tags" jdbcType="VARCHAR" />
 		<result column="post_type" property="postType" jdbcType="INTEGER" />
+		<result column="view_count" property="viewCount" jdbcType="INTEGER" />
 		<result column="is_publish" property="isPublish" jdbcType="INTEGER" />
 		<result column="category_id" property="categoryId" jdbcType="INTEGER" />
 		<result column="public_date" property="publicDate" jdbcType="VARCHAR" />
@@ -19,7 +20,7 @@
 		<association property="commentCount" column="id" select="com.mlzone.csuldw.dao.ICommentMapper.countCommentByArticleId" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, title, file_path, image_path, author, user_id, keywords, tags, post_type, is_publish, category_id,
+		id, title, file_path, image_path, author, user_id, keywords, tags, post_type, view_count, is_publish, category_id,
 		public_date
 	</sql>
 	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -44,6 +45,7 @@
 			keywords, 
 			tags,
 			post_type, 
+			view_count,
 			is_publish,
 			category_id, 
 			public_date
@@ -58,6 +60,7 @@
 			#{keywords,jdbcType=VARCHAR}, 
 			#{tags,jdbcType=VARCHAR},
 			#{postType,jdbcType=INTEGER}, 
+			#{viewCount,jdbcType=INTEGER}, 
 			#{isPublish,jdbcType=INTEGER}, 
 			#{categoryId,jdbcType=INTEGER},
 			#{publicDate,jdbcType=VARCHAR}
@@ -71,6 +74,7 @@
 			keywords = #{keywords,jdbcType=VARCHAR},
 			tags = #{tags,jdbcType=VARCHAR},
 			post_type = #{postType,jdbcType=INTEGER},
+			view_count = #{viewCount,jdbcType=INTEGER},
 			is_publish = #{isPublish,jdbcType=INTEGER},
 			category_id = #{categoryId,jdbcType=INTEGER},
 			public_date = #{publicDate,jdbcType=VARCHAR}
@@ -105,9 +109,12 @@
 			<if test="postType != null">
 				post_type,
 			</if>
+			<if test="viewCount != null">
+				view_count,
+			</if>
 			<if test="isPublish != null">
 				is_publish,
-			</if>
+			</if>			
 			<if test="categoryId != null">
 				category_id,
 			</if>
@@ -142,6 +149,9 @@
 			</if>
 			<if test="postType != null">
 				#{postType,jdbcType=INTEGER},
+			</if>
+			<if test="viewCount != null">
+				#{view_count,jdbcType=INTEGER},
 			</if>
 			<if test="isPublish != null">
 				#{isPublish,jdbcType=INTEGER},
@@ -203,6 +213,7 @@
 			keywords, 
 			tags,
 			post_type, 
+			view_count,
 			is_publish,
 			category_id, 
 			public_date
@@ -216,6 +227,7 @@
 			#{keywords,jdbcType=VARCHAR}, 
 			#{tags,jdbcType=VARCHAR},
 			#{postType,jdbcType=INTEGER}, 
+			#{viewCount,jdbcType=INTEGER}, 
 			#{isPublish,jdbcType=INTEGER}, 
 			#{categoryId,jdbcType=INTEGER},
 			#{publicDate,jdbcType=VARCHAR}
@@ -231,6 +243,7 @@
 		keywords = #{keywords,jdbcType=VARCHAR},
 		tags = #{tags,jdbcType=VARCHAR},
 		post_type = #{postType,jdbcType=INTEGER},
+		view_count = #{viewCount,jdbcType=INTEGER},
 		is_publish = #{isPublish,jdbcType=INTEGER},
 		category_id = #{categoryId,jdbcType=INTEGER},
 		public_date = #{publicDate,jdbcType=VARCHAR}
@@ -239,6 +252,10 @@
 	
 	<update id="updateAuthor" parameterType="Map">
 		update tb_article_info 	set	author = #{author}	where user_id = #{userId}
+	</update>
+	
+	<update id="updateViewCount" parameterType="Map">
+		update tb_article_info 	set	view_count = view_count+1 where id = #{id}
 	</update>
 	
  	<select id="getList" resultMap="BaseResultMap">
@@ -256,6 +273,7 @@
 			t.keywords keywords,
 			t.tags tags,
 			t.post_type postType,
+			t.view_count viewCount,
 			t.is_publish isPublish,
 			t.category_id categoryId,
 			t.public_date publicDate,

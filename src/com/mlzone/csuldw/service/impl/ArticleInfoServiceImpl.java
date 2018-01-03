@@ -62,6 +62,7 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 
 	@Override
 	public ArticleInfoEntity getArticelInfoById(Integer id) {
+		articleInfoMapper.updateViewCount(id);
 		return articleInfoMapper.getById(id);
 	}
 

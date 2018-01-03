@@ -48,4 +48,6 @@ public interface IArticleInfoMapper extends BaseMapper<ArticleInfoEntity>{
      * @since
      */
     int updateAuthor(@Param("userId") Integer userId, @Param("author") String author);
+
+    int updateViewCount(@Param("id") Integer id);
 }

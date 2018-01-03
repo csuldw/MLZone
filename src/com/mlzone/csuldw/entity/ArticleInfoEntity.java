@@ -31,6 +31,8 @@ public class ArticleInfoEntity {
     
     private String publicDate;
     
+    private Integer viewCount;
+    
     private Integer isPublish;
     
     private UserEntity userEntity;
@@ -133,6 +135,14 @@ public class ArticleInfoEntity {
 
 	public void setIsPublish(Integer isPublish) {
 		this.isPublish = isPublish;
+	}
+
+	public Integer getViewCount() {
+		return viewCount;
+	}
+
+	public void setViewCount(Integer viewCount) {
+		this.viewCount = viewCount;
 	}
 
 	public UserEntity getUserEntity() {
