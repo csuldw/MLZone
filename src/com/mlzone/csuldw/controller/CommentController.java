@@ -135,6 +135,7 @@ public class CommentController {
 		try {
 			List<CommentEntity> commentList = commentService.getCommentListByArticleId(articleId);
 			resultMap.put("data", commentList);
+			resultMap.put("commentCount", commentService.countCommentByArticleId(articleId));
 			resultMap.put("result", "success");
 			
 		} catch (Exception e) {
@@ -170,6 +171,7 @@ public class CommentController {
 			log.info("keywords:" + keywords);
 			PageInfo<CommentEntity> comments = commentService.getCommentListByParam(keywords, pageNum, pageSize, fromUserId, toUserId, articleId, parentCommentId);
 			resultMap.put("data", comments);
+			resultMap.put("commentCount", commentService.countCommentByArticleId(articleId));
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			resultMap.put("result", "error");
