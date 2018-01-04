@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mlzone.csuldw.dao.IWebSourceMapper">
+	<resultMap id="BaseResultMap" type="com.mlzone.csuldw.entity.WebSourceEntity">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
+		<result column="source_type" property="sourceType" jdbcType="VARCHAR" />
+		<result column="desc" property="desc" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id, name, url, author, source_type, `desc`
+	</sql>
+	
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from tb_web_source
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteById" parameterType="java.lang.Integer">
+		delete from tb_web_source
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="save" parameterType="com.mlzone.csuldw.entity.StarEntity">
+		insert into 
+			tb_web_source (`name`, `url`, `author`, `source_type`, `desc`)
+		values (
+			#{name,jdbcType=VARCHAR},
+			#{url,jdbcType=VARCHAR},
+			#{author,jdbcType=VARCHAR}, 
+			#{sourceType,jdbcType=VARCHAR},
+			#{desc,jdbcType=VARCHAR}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.mlzone.csuldw.entity.StarEntity">
+		update 
+			tb_web_source t
+		set 
+			t.name = #{name,jdbcType=VARCHAR},
+			t.url = #{url,jdbcType=VARCHAR},
+			t.author = #{author,jdbcType=VARCHAR},
+			t.source_type = #{sourceType,jdbcType=VARCHAR},
+			t.`desc` = #{desc,jdbcType=VARCHAR}
+			where t.id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="getListByParam" parameterType="Map" resultMap="BaseResultMap">		
+		SELECT *
+		FROM tb_web_source t
+		WHERE 1 = 1
+		<if test="sourceType != null and sourceType != ''">
+			AND t.source_type = #{sourceType}
+		</if>
+		<if test="keywords != null and keywords != ''">
+			AND CONCAT_WS(
+			    '/-/',
+			    t.name, 
+			    t.author,
+			    t.`desc`
+			) LIKE CONCAT('%',#{keywords},'%')
+		</if>
+	</select>
+	
+</mapper>
