@@ -12,6 +12,8 @@ public class WebSourceEntity {
     private Integer id;
 
     private String name;
+    
+    private String avator;
 
     private String url;
 
@@ -67,6 +69,14 @@ public class WebSourceEntity {
 
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+
+	public String getAvator() {
+		return avator;
+	}
+
+	public void setAvator(String avator) {
+		this.avator = avator;
 	}
 
 }

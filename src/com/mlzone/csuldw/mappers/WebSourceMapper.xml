@@ -4,6 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.mlzone.csuldw.entity.WebSourceEntity">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="avator" property="avator" jdbcType="VARCHAR" />
 		<result column="url" property="url" jdbcType="VARCHAR" />
 		<result column="author" property="author" jdbcType="VARCHAR" />
 		<result column="source_type" property="sourceType" jdbcType="VARCHAR" />
@@ -11,7 +12,7 @@
 	</resultMap>
 	
 	<sql id="Base_Column_List">
-		id, name, url, author, source_type, `desc`
+		id, name, avator, url, author, source_type, `desc`
 	</sql>
 	
 	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -28,9 +29,10 @@
 	
 	<insert id="save" parameterType="com.mlzone.csuldw.entity.StarEntity">
 		insert into 
-			tb_web_source (`name`, `url`, `author`, `source_type`, `desc`)
+			tb_web_source (`name`, `avator`, `url`, `author`, `source_type`, `desc`)
 		values (
 			#{name,jdbcType=VARCHAR},
+			#{avator,jdbcType=VARCHAR},
 			#{url,jdbcType=VARCHAR},
 			#{author,jdbcType=VARCHAR}, 
 			#{sourceType,jdbcType=VARCHAR},
@@ -43,6 +45,7 @@
 			tb_web_source t
 		set 
 			t.name = #{name,jdbcType=VARCHAR},
+			t.avator = #{avator,jdbcType=VARCHAR},
 			t.url = #{url,jdbcType=VARCHAR},
 			t.author = #{author,jdbcType=VARCHAR},
 			t.source_type = #{sourceType,jdbcType=VARCHAR},

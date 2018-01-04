@@ -41,7 +41,7 @@ public class WebSourceController {
 	 */
 	@RequestMapping(value = "/webSource/saveOrUpdateWebSource.do", method = RequestMethod.POST)
 	@ResponseBody
-	public Map<String, Object> saveOrUpdateWebSource(WebSourceEntity webSourceEntity){
+	public Map<String, Object> saveOrUpdateWebSource(@RequestBody WebSourceEntity webSourceEntity){
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			int saveResult = webSourceService.saveOrUpdate(webSourceEntity);

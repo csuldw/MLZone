@@ -251,11 +251,8 @@ public class ArticleInfoController {
 		try {
 			String fileUploadPath = "/data01/";
 			String fullPath = fileUploadPath; // 文件夹路径
-			if("article".equals(uploadType)){
-				fullPath += "/article/";
-			}
-			if("images".equals(uploadType)){
-				fullPath += "/images/";
+			if(uploadType != null){
+				fullPath += "/" + uploadType + "/";
 			}
 			String fileName = file.getOriginalFilename(); //文件名称
 			log.info("filePath: " + fullPath + fileName);
