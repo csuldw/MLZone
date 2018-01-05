@@ -272,7 +272,11 @@ public class ArticleInfoController {
 //			}
 			FileUtil.upload(file.getInputStream(), fullPath, fileName);
 			resultMap.put("result", "success");
-			resultMap.put("filePath", webPath + File.separator + fileName);
+			if("article".equals(uploadType)){
+				resultMap.put("filePath", fullPath + File.separator + fileName);
+			}else{
+				resultMap.put("filePath", webPath + File.separator + fileName);
+			}
 			log.info("上传文件成功");
 		} catch (IOException e) {
 			log.error("上传文件异常", e);
