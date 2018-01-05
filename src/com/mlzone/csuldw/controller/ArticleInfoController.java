@@ -235,7 +235,7 @@ public class ArticleInfoController {
 	 * 上传文件
 	 * 
 	 * Author:liudiwei Date:2017年12月29日
-	 * 
+	 * Tomcat配置文件添加：<Context docBase="D:/data01/uploads" path="/MLZone/uploads/" reloadable="false"/>
 	 * @param request
 	 * @param file
 	 * @return
@@ -248,11 +248,19 @@ public class ArticleInfoController {
 			@RequestParam(required = false) String uploadType) {
 		log.info("uploadType:" + uploadType);
 		Map<String, Object> resultMap = new HashMap<>();
+		String webPath = request.getScheme()+ "://" + request.getServerName() + ":" + request.getServerPort() +request.getContextPath();;
+		
+		String serverUrl = request.getSession().getServletContext().getRealPath("");
+		String fullPath = "/data01";
+		
+		//增加uploads目录
+		webPath += File.separator + "uploads";
+		fullPath += File.separator + "uploads";
+		
 		try {
-			String fileUploadPath = "/data01/";
-			String fullPath = fileUploadPath; // 文件夹路径
 			if(uploadType != null){
-				fullPath += "/" + uploadType + "/";
+				fullPath += File.separator + uploadType;
+				webPath += File.separator + uploadType;
 			}
 			String fileName = file.getOriginalFilename(); //文件名称
 			log.info("filePath: " + fullPath + fileName);
@@ -264,7 +272,7 @@ public class ArticleInfoController {
 //			}
 			FileUtil.upload(file.getInputStream(), fullPath, fileName);
 			resultMap.put("result", "success");
-			resultMap.put("filePath", fullPath + fileName);
+			resultMap.put("filePath", webPath + File.separator + fileName);
 			log.info("上传文件成功");
 		} catch (IOException e) {
 			log.error("上传文件异常", e);
