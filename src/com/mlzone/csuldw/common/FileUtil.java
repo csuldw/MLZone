@@ -12,6 +12,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -296,5 +298,44 @@ public class FileUtil {
 			file.createNewFile();
 		}
 	}
-
+	
+	/**
+	 * 去除空格
+	 * 
+	 * @author liudiwei
+	 * @since 2018年1月5日 
+	 * @param str
+	 * @return
+	 */
+	public static String replaceBlank(String str) {  
+        String dest = "";  
+        if (str!=null) {  
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");  
+            Matcher m = p.matcher(str);  
+            dest = m.replaceAll("");  
+        }  
+        return dest;  
+    }  
+	
+	/**
+	 * 生成摘要
+	 * 
+	 * @author liudiwei
+	 * @since 2018年1月5日 
+	 * @param filePath
+	 * @return
+	 */
+	public static String generateAbstract(String filePath){
+		ResultModel result = loadContentByPath(filePath);
+		if(result.getCode() == 1000){
+			String [] arr = result.getData().toString().split("<!-- more -->");
+			String content = replaceBlank(arr[0]);
+			if(arr.length > 1){
+				return content;
+			}
+			int len = content.length() > 200 ? 200 : content.length() ;
+			return content.substring(0, len);
+		}
+		return null;
+	}
 }
