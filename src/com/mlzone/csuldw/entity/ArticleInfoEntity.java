@@ -16,6 +16,8 @@ public class ArticleInfoEntity {
     private String filePath;
     
     private String imagePath;
+    
+    private String articleAbstract;
 
     private Integer userId;
     
@@ -167,6 +169,14 @@ public class ArticleInfoEntity {
 
 	public void setCommentCount(Integer commentCount) {
 		this.commentCount = commentCount;
+	}
+
+	public String getArticleAbstract() {
+		return articleAbstract;
+	}
+
+	public void setArticleAbstract(String articleAbstract) {
+		this.articleAbstract = articleAbstract;
 	}
 
 	@Override
