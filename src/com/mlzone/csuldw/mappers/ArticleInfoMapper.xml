@@ -6,6 +6,7 @@
 		<result column="title" property="title" jdbcType="VARCHAR" />
 		<result column="file_path" property="filePath" jdbcType="VARCHAR" />
 		<result column="image_path" property="imagePath" jdbcType="VARCHAR" />
+		<result column="article_abstract" property="articleAbstract" jdbcType="VARCHAR" />
 		<result column="author" property="author" jdbcType="VARCHAR" />
 		<result column="user_id" property="userId" jdbcType="INTEGER" />
 		<result column="keywords" property="keywords" jdbcType="VARCHAR" />
@@ -20,7 +21,7 @@
 		<association property="commentCount" column="id" select="com.mlzone.csuldw.dao.ICommentMapper.countCommentByArticleId" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		id, title, file_path, image_path, author, user_id, keywords, tags, post_type, view_count, is_publish, category_id,
+		id, title, file_path, image_path, article_abstract, author, user_id, keywords, tags, post_type, view_count, is_publish, category_id,
 		public_date
 	</sql>
 	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
@@ -40,6 +41,7 @@
 			title, 
 			file_path,
 			image_path,
+			article_abstract,
 			author,
 			user_id, 
 			keywords, 
@@ -55,6 +57,7 @@
 			#{title,jdbcType=VARCHAR},
 			#{filePath,jdbcType=VARCHAR},
 			#{imagePath,jdbcType=VARCHAR},
+			#{articleAbstract,jdbcType=VARCHAR},
 			#{author,jdbcType=VARCHAR},
 			#{userId,jdbcType=INTEGER}, 
 			#{keywords,jdbcType=VARCHAR}, 
@@ -69,6 +72,7 @@
 			title = #{title,jdbcType=VARCHAR},
 			file_path = #{filePath,jdbcType=VARCHAR},
 			image_path = #{imagePath,jdbcType=VARCHAR},
+			article_abstract = #{articleAbstract,jdbcType=VARCHAR},
 			author = #{author,jdbcType=VARCHAR},
 			user_id = #{userId,jdbcType=INTEGER},
 			keywords = #{keywords,jdbcType=VARCHAR},
@@ -79,135 +83,14 @@
 			category_id = #{categoryId,jdbcType=INTEGER},
 			public_date = #{publicDate,jdbcType=VARCHAR}
 	</insert>
-	<insert id="saveSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
-		insert into tb_article_info
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="title != null">
-				title,
-			</if>
-			<if test="filePath != null">
-				file_path,
-			</if>
-			<if test="imagePath != null">
-				image_path,
-			</if>
-			<if test="author != null">
-				author,
-			</if>
-			<if test="userId != null">
-				user_id,
-			</if>
-			<if test="keywords != null">
-				keywords,
-			</if>
-			<if test="tags != null">
-				tags,
-			</if>
-			<if test="postType != null">
-				post_type,
-			</if>
-			<if test="viewCount != null">
-				view_count,
-			</if>
-			<if test="isPublish != null">
-				is_publish,
-			</if>			
-			<if test="categoryId != null">
-				category_id,
-			</if>
-			<if test="publicDate != null">
-				public_date,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="title != null">
-				#{title,jdbcType=VARCHAR},
-			</if>
-			<if test="filePath != null">
-				#{filePath,jdbcType=VARCHAR},
-			</if>
-			<if test="imagePath != null">
-				#{imagePath,jdbcType=VARCHAR},
-			</if>
-			<if test="author != null">
-				#{author,jdbcType=VARCHAR},
-			</if>
-			<if test="userId != null">
-				#{userId,jdbcType=INTEGER},
-			</if>
-			<if test="keywords != null">
-				#{keywords,jdbcType=VARCHAR},
-			</if>
-			<if test="tags != null">
-				#{tags,jdbcType=VARCHAR},
-			</if>
-			<if test="postType != null">
-				#{postType,jdbcType=INTEGER},
-			</if>
-			<if test="viewCount != null">
-				#{view_count,jdbcType=INTEGER},
-			</if>
-			<if test="isPublish != null">
-				#{isPublish,jdbcType=INTEGER},
-			</if>
-			<if test="categoryId != null">
-				#{categoryId,jdbcType=INTEGER},
-			</if>
-			<if test="publicDate != null">
-				#{publicDate,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateSelective" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
-		update tb_article_info
-		<set>
-			<if test="title != null">
-				title = #{title,jdbcType=VARCHAR},
-			</if>
-			<if test="filePath != null">
-				file_path = #{filePath,jdbcType=VARCHAR},
-			</if>
-			<if test="imagePath != null">
-				image_path = #{imagePath,jdbcType=VARCHAR},
-			</if>
-			<if test="author != null">
-				author = #{author,jdbcType=VARCHAR},
-			</if>
-			<if test="userId != null">
-				user_id = #{userId,jdbcType=INTEGER},
-			</if>
-			<if test="keywords != null">
-				keywords = #{keywords,jdbcType=VARCHAR},
-			</if>
-			<if test="tags != null">
-				tags = #{tags,jdbcType=VARCHAR},
-			</if>
-			<if test="postType != null">
-				post_type = #{postType,jdbcType=INTEGER},
-			</if>
-			<if test="isPublish != null">
-				is_publish = #{postType,jdbcType=INTEGER},
-			</if>
-			<if test="categoryId != null">
-				category_id = #{categoryId,jdbcType=INTEGER},
-			</if>
-			<if test="publicDate != null">
-				public_date = #{publicDate,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
+	
+	
 	<insert id="save" parameterType="com.mlzone.csuldw.entity.ArticleInfoEntity">
 		insert into tb_article_info(
 			title, 
 			file_path,
 			image_path,
+			article_abstract,
 			author,
 			user_id, 
 			keywords, 
@@ -222,6 +105,7 @@
 			#{title,jdbcType=VARCHAR},
 			#{filePath,jdbcType=VARCHAR},
 			#{imagePath,jdbcType=VARCHAR},
+			#{articleAbstract,jdbcType=VARCHAR},
 			#{author,jdbcType=VARCHAR},
 			#{userId,jdbcType=INTEGER}, 
 			#{keywords,jdbcType=VARCHAR}, 
@@ -238,6 +122,7 @@
 		set title = #{title,jdbcType=VARCHAR},
 		file_path = #{filePath,jdbcType=VARCHAR},
 		image_path = #{imagePath,jdbcType=VARCHAR},
+		article_abstract = #{articleAbstract,jdbcType=VARCHAR},
 		author = #{author,jdbcType=VARCHAR},
 		user_id = #{userId,jdbcType=INTEGER},
 		keywords = #{keywords,jdbcType=VARCHAR},
@@ -268,6 +153,7 @@
 			t.title title,
 			t.file_path filePath,
 			t.image_path imagePath,
+			t.article_abstract articleAbstract,
 			t.author author,
 			t.user_id userId,
 			t.keywords keywords,
