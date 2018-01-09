@@ -311,6 +311,11 @@
 			    a.category_name
 			) LIKE CONCAT('%',#{keywords},'%')
 		</if>
+		ORDER BY
+		<if test="orderColumn != null and orderColumn != ''">
+			${orderColumn} +0 ${orderType} ,
+		</if>
+			t.id ASC
 	</select>
 	
 	<select id="getArticleCountByQueryType" resultType="com.mlzone.csuldw.entity.vo.ArticleCountStatVo">
