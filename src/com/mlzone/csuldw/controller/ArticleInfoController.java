@@ -122,7 +122,9 @@ public class ArticleInfoController {
 			@RequestParam(required = false) String categoryName,
 			@RequestParam(required = false) String publicDate,
 			@RequestParam(required = false) String keywords,
-			@RequestParam(required = false) Integer isPublish) {
+			@RequestParam(required = false) Integer isPublish,
+			@RequestParam(required = false) String orderColumn,
+			@RequestParam(required = false) String orderType) {
 		Map<String, Object> resultMap = new HashMap<>();
 		try {
 			log.info("title:" + title + " | author:" + author + " |tags:"
@@ -132,7 +134,7 @@ public class ArticleInfoController {
 			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService
 					.getArticleInfoListByPage(keywords, author, title,
 							publicDate, categoryName, tags, isPublish, pageNum,
-							pageSize).toPageInfo();
+							pageSize, orderColumn, orderType).toPageInfo();
 			resultMap.put("data", articleInfoList);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
@@ -170,68 +172,6 @@ public class ArticleInfoController {
 	}
 
 	/**
-	 * 根据参数获取文章列表
-	 * 
-	 * Author:liudiwei Date:2017年10月15日
-	 * 
-	 * @param keywords
-	 * @param tag
-	 * @param category
-	 * @param pageSize
-	 * @param pageNum
-	 * @return
-	 * @since
-	 */
-	@RequestMapping(value = "/articleInfo/getArticleInfoListByParams.do")
-	@ResponseBody
-	public Map<String, Object> getArticleInfoListByParams(int pageSize,
-			int pageNum, String keywords, String tag, String category) {
-		Map<String, Object> resultMap = new HashMap<>();
-		try {
-			log.info(keywords);
-			List<ArticleInfoEntity> articleInfoList = articleInfoService
-					.getArticleInfoListByParams(keywords, tag, category,
-							pageNum, pageSize);
-			resultMap.put("data", articleInfoList);
-			resultMap.put("result", "success");
-
-		} catch (Exception e) {
-			resultMap.put("result", "error");
-			System.out.println(e);
-		}
-		return resultMap;
-	}
-
-	/**
-	 * 根据参数统计文章数量
-	 * 
-	 * Author:liudiwei Date:2017年10月15日
-	 * 
-	 * @param keywords
-	 * @param tag
-	 * @param category
-	 * @return
-	 * @since
-	 */
-	@RequestMapping(value = "/articleInfo/countArticleInfoByParams.do")
-	@ResponseBody
-	public Map<String, Object> countArticleInfoByParams(String keywords,
-			String tag, String category) {
-		Map<String, Object> resultMap = new HashMap<>();
-		try {
-			int articleNum = articleInfoService.countArticleInfoByParams(
-					keywords, tag, category);
-			resultMap.put("articleNum", articleNum);
-			resultMap.put("result", "success");
-
-		} catch (Exception e) {
-			resultMap.put("result", "error");
-			System.out.println(e);
-		}
-		return resultMap;
-	}
-
-	/**
 	 * 上传文件
 	 * 
 	 * Author:liudiwei Date:2017年12月29日
@@ -250,7 +190,7 @@ public class ArticleInfoController {
 		Map<String, Object> resultMap = new HashMap<>();
 		String webPath = request.getScheme()+ "://" + request.getServerName() + ":" + request.getServerPort() +request.getContextPath();;
 		
-		String serverUrl = request.getSession().getServletContext().getRealPath("");
+		//String serverUrl = request.getSession().getServletContext().getRealPath("");
 		String fullPath = "/data01";
 		
 		//增加uploads目录
