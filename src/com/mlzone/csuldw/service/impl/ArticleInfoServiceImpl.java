@@ -67,25 +67,10 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 	}
 
 	@Override
-	public List<ArticleInfoEntity> getArticleInfoListByParams(String keywords,
-			String tag, String category, int pageNum, int pageSize) {
-		PageHelper.startPage(pageNum, pageSize);
-		return articleInfoMapper.getArticleInfoListByParams(keywords, tag,
-				category);
-	}
-
-	@Override
-	public int countArticleInfoByParams(String keywords, String tag,
-			String category) {
-		return articleInfoMapper.countArticleInfoByParams(keywords, tag,
-				category);
-	}
-
-	@Override
 	public Page<ArticleInfoEntity> getArticleInfoListByPage(String keywords,
 			String author, String title, String publicDate,
 			String categoryName, String tags, Integer isPublish, int pageNum,
-			int pageSize) {
+			int pageSize, String orderColumn, String orderType) {
 		PageHelper.startPage(pageNum, pageSize);
 		Map<String, Object> params = new HashMap<>();
 		params.put("keywords", keywords);
@@ -95,6 +80,8 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 		params.put("categoryName", categoryName);
 		params.put("tags", tags);
 		params.put("isPublish", isPublish);
+		params.put("orderColumn", orderColumn);
+		params.put("orderType", orderType);
 		Page<ArticleInfoEntity> articlePage = (Page<ArticleInfoEntity>) articleInfoMapper
 				.getListByParam(params);
 		return articlePage;
