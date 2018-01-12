@@ -18,6 +18,16 @@ public interface IUserMapper extends BaseMapper<UserEntity>{
     int checkUserExistByUsername(String username);
     
     /**
+     * 检查邮箱是否已经被注册
+     * 
+     * @author liudiwei
+     * @since 2018年1月12日 
+     * @param email
+     * @return
+     */
+    int checkEmailExistByUsername(String email);
+    
+    /**
      * 登录判断
      *
      * Author:liudiwei
