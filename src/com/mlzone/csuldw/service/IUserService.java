@@ -33,6 +33,8 @@ public interface IUserService {
     
     boolean checkUserExistByUsername(String username);
     
+    boolean checkEmailExistByUsername(String email);
+    
     public UserEntity login(String username, String password);
 
 }
