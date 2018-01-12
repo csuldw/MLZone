@@ -109,6 +109,16 @@ public class UserServiceImpl implements IUserService {
 		}
 		return isExist;
 	}
+	
+	@Override
+	public boolean checkEmailExistByUsername(String email)
+	{
+		boolean isExist = false;
+		if (userMapper.checkEmailExistByUsername(email) > 0) {
+			isExist = true;
+		}
+		return isExist;
+	}
 
 	@Override
 	public UserEntity login(String username, String password) {
@@ -117,5 +127,5 @@ public class UserServiceImpl implements IUserService {
 		params.put("password", password);
 		UserEntity user = userMapper.login(params);
 		return user;
-	}
+	}	
 }
