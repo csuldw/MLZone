@@ -165,6 +165,30 @@ public class UserController {
 	}
 	
 	/**
+	 * 检查邮箱是否已经注册
+	 *
+	 * Author:liudiwei
+	 * Date:2017年10月15日
+	 * @param username
+	 * @return
+	 * @since
+	 */
+	@RequestMapping(value = "/user/checkEmailExistByUsername.do", method = {RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> checkEmailExistByUsername(String email){
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			boolean isExist = userService.checkEmailExistByUsername(email);
+			resultMap.put("isExist", isExist);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			System.out.println(e);
+		}
+		return resultMap;
+	}
+	
+	/**
 	 * 登录
 	 * 
 	 * @author liudiwei
