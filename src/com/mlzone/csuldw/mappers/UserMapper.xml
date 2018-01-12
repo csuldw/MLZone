@@ -312,6 +312,10 @@
 		select count(*) from tb_user where username=#{username}
 	</select>
 	
+	<select id="checkEmailExistByUsername" parameterType="String" resultType="java.lang.Integer">
+		select count(*) from tb_user where email=#{email}
+	</select>
+	
 	<select id="login" parameterType="Map" resultMap="BaseResultMap">
 		select * 
 		from tb_user 
