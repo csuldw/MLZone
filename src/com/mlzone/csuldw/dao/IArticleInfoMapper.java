@@ -24,4 +24,14 @@ public interface IArticleInfoMapper extends BaseMapper<ArticleInfoEntity>{
     int updateAuthor(@Param("userId") Integer userId, @Param("author") String author);
 
     int updateViewCount(@Param("id") Integer id);
+    
+    /**
+     * 简单推荐功能
+     * 
+     * @author liudiwei
+     * @since 2018年1月17日 
+     * @param params
+     * @return
+     */
+    List<ArticleInfoEntity> getRecArticleListByParam(Object params);
 }
