@@ -230,4 +230,36 @@
 		</choose>
 	</select>
 	
+	<select id="getRecArticleListByParam" parameterType="Map" resultMap="BaseResultMap">
+		SELECT 
+			t.id id,
+			t.title title,
+			t.file_path filePath,
+			t.image_path imagePath,
+			t.article_abstract articleAbstract,
+			t.author author,
+			t.user_id userId,
+			t.keywords keywords,
+			t.tags tags,
+			t.post_type postType,
+			t.view_count viewCount,
+			t.is_publish isPublish,
+			t.category_id categoryId,
+			t.public_date publicDate,
+			a.category_name categoryName,
+			t.user_id user_id,
+			t.category_id category_id
+		FROM tb_article_info t
+		left join tb_article_category a  on t.category_id = a.id
+		WHERE 1 = 1
+		AND t.is_publish=1
+		AND t.user_id = 712
+		AND t.post_type = 0
+		ORDER BY
+		<if test="orderColumn != null and orderColumn != ''">
+			${orderColumn} +0 ${orderType} ,
+		</if>
+			t.view_count desc
+	</select>
+	
 </mapper>
