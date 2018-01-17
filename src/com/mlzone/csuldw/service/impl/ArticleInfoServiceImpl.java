@@ -100,4 +100,16 @@ public class ArticleInfoServiceImpl implements IArticleInfoService {
 		return articleInfoMapper.getArticleCountByQueryType(params);
 	}
 
+	@Override
+	public Page<ArticleInfoEntity> getRecArticelInfoList(int pageNum, int pageSize, String orderColumn,
+			String orderType)
+	{
+		PageHelper.startPage(pageNum, pageSize);
+		Map<String, Object> params = new HashMap<>();
+		params.put("orderColumn", orderColumn);
+		params.put("orderType", orderType);
+		Page<ArticleInfoEntity> articlePage = (Page<ArticleInfoEntity>) articleInfoMapper.getRecArticleListByParam(params);
+		return articlePage;
+	}
+
 }
