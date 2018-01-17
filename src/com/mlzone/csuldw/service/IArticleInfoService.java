@@ -27,5 +27,7 @@ public interface IArticleInfoService {
     ArticleInfoEntity getArticelInfoById(Integer id);
     
     List<ArticleCountStatVo> getArticleCountByParam(String queryType);
+   
+    Page<ArticleInfoEntity> getRecArticelInfoList(int pageNum, int pageSize, String orderColumn, String orderType);
 
 }
