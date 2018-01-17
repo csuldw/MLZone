@@ -295,4 +295,33 @@ public class ArticleInfoController {
 		resultMap = FileUtil.loadContentByPath(filePath);
 		return resultMap;
 	}
+	
+	/**
+	 * 简单推荐
+	 * 
+	 * @author liudiwei
+	 * @since 2018年1月17日 
+	 * @param pageNum
+	 * @param pageSize
+	 * @param orderColumn
+	 * @param orderType
+	 * @return
+	 */
+	@RequestMapping(value = "/articleInfo/getRecArticelInfoList.do", method = { RequestMethod.POST })
+	@ResponseBody
+	public Map<String, Object> getRecArticelInfoList(int pageNum, int pageSize,
+			@RequestParam(required = false) String orderColumn,
+			@RequestParam(required = false) String orderType) {
+		Map<String, Object> resultMap = new HashMap<>();
+		try {
+			PageInfo<ArticleInfoEntity> articleInfoList = articleInfoService.getRecArticelInfoList(pageNum, pageSize, orderColumn, orderType).toPageInfo();
+			resultMap.put("data", articleInfoList);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			resultMap.put("result", "error");
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+ 
 }
